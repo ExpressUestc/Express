@@ -18,10 +18,10 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                LoginActivity.startActivity(SplashActivity.this);
+                MainActivity.startActivity(SplashActivity.this);
                 finish();
             }
-        },1500);
+        }, 2000);
 
     }
 }
