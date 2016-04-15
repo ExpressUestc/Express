@@ -2,8 +2,12 @@
     <string name="app_name">Express</string>
 
     <string name="welcome">欢迎使用</string>
-    
+
     <string name="iamexpress">我是快递员</string>
     <string name="iamcustomer">我是顾客</string>
+
+    <string name="iwantsend">我要寄件</string>
+    <string name="iwantreceive">我要收件</string>
+    <string name="search">查询</string>
 
 </resources>

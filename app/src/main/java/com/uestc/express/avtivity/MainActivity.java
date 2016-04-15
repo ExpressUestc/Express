@@ -15,7 +15,8 @@ public class MainActivity extends Activity {
         activity.startActivity(intent);
     }
 
-    Button customer, express;
+    Button customer;
+    Button express;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,14 @@ public class MainActivity extends Activity {
 
     }
 
-    void initView() {
+    private void initView() {
         customer = (Button) findViewById(R.id.customer);
         express = (Button) findViewById(R.id.express);
 
         customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CustomerHomeActivity.startActivity(MainActivity.this);
             }
         });
 
