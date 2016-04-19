@@ -50,7 +50,7 @@ public class CustomerHomeActivity extends Activity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(CustomerHomeActivity.this, CustomerQueryActivity.class));
             }
         });
 

@@ -9,5 +9,6 @@
     <string name="iwantsend">我要寄件</string>
     <string name="iwantreceive">我要收件</string>
     <string name="search">查询</string>
+    <string name="title_activity_custiomer_query">CustiomerQueryActivity</string>
 
 </resources>
