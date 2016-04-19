@@ -1,44 +1,28 @@
 package com.uestc.express.avtivity;
 
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.uestc.express.R;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerQueryActivity extends Activity {
+public class CustomerQueryActivity extends BaseActivity {
 
     private Button btnGetCode, btnSubmit;
     private EditText etName, etPhone, etCode;

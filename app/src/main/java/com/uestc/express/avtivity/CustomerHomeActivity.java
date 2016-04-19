@@ -3,12 +3,16 @@ package com.uestc.express.avtivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.uestc.express.R;
 
-public class CustomerHomeActivity extends Activity {
+public class CustomerHomeActivity extends BaseActivity {
 
     static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, CustomerHomeActivity.class);
@@ -36,7 +40,7 @@ public class CustomerHomeActivity extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                netTest();
             }
         });
 
@@ -55,4 +59,21 @@ public class CustomerHomeActivity extends Activity {
         });
 
     }
+
+    // volley sample
+    void netTest() {
+        StringRequest test = getRequestManager().demo("123", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("test", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("test", error.getMessage());
+            }
+        });
+        addRequest(test);
+    }
+
 }
