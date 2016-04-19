@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,17 +59,38 @@ public class CustomerQueryActivity extends Activity {
         etName = (EditText) findViewById(R.id.editTextName);
         etPhone = (EditText) findViewById(R.id.editTextPhone);
         etCode = (EditText) findViewById(R.id.editTextCode);
-        responseText= (TextView) findViewById(R.id.textView);
+        responseText = (TextView) findViewById(R.id.textView);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jsonObjectRequestPost();
+                if (TextUtils.isEmpty(etName.getText())) {
+                    Toast.makeText(CustomerQueryActivity.this, "请输入姓名~", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(etPhone.getText())) {
+                    Toast.makeText(CustomerQueryActivity.this, "请输入手机号~", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(etCode.getText())) {
+                    Toast.makeText(CustomerQueryActivity.this, "请输入验证码~", Toast.LENGTH_SHORT).show();
+                } else {
+                    Map<String,String> map=new HashMap<String,String>();
+                    map.put("name",etName.getText().toString());
+                    map.put("phone",etPhone.getText().toString());
+                    map.put("code",etCode.getText().toString());
+                    jsonObjectRequestPost(map);
+                }
             }
         });
         btnGetCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (TextUtils.isEmpty(etName.getText())) {
+                    Toast.makeText(CustomerQueryActivity.this, "请输入姓名~", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(etPhone.getText())) {
+                    Toast.makeText(CustomerQueryActivity.this, "请输入手机号~", Toast.LENGTH_SHORT).show();
+                } else {
+                    Map<String,String> map=new HashMap<String,String>();
+                    map.put("name",etName.getText().toString());
+                    map.put("phone",etPhone.getText().toString());
+                    jsonObjectRequestPost(map);
+                }
             }
         });
     }
@@ -133,12 +155,12 @@ public class CustomerQueryActivity extends Activity {
 //        requestQueue.add(jsonObjectRequest);
 //    }
 
-    private void jsonObjectRequestPost(){
-        String url = "";
-        Map<String,String> params = DummyData.getDummyData();
-        final String mRequestBody = appendParameter(url,params);
+    private void jsonObjectRequestPost(Map<String,String> map) {
+        String url = "http://192.168.95.2:928/";
+        Map<String, String> params = map;
+        final String mRequestBody = appendParameter(url, params);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 responseText.setText(response.toString());
@@ -149,7 +171,7 @@ public class CustomerQueryActivity extends Activity {
             public void onErrorResponse(VolleyError error) {
                 responseText.setText(error.getMessage());
             }
-        }){
+        }) {
             @Override
             public byte[] getBody() {
                 return mRequestBody.getBytes();
@@ -158,11 +180,11 @@ public class CustomerQueryActivity extends Activity {
         mQueue.add(jsonObjectRequest);
     }
 
-    private String appendParameter(String url,Map<String,String> params){
+    private String appendParameter(String url, Map<String, String> params) {
         Uri uri = Uri.parse(url);
         Uri.Builder builder = uri.buildUpon();
-        for(Map.Entry<String,String> entry:params.entrySet()){
-            builder.appendQueryParameter(entry.getKey(),entry.getValue());
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            builder.appendQueryParameter(entry.getKey(), entry.getValue());
         }
         return builder.build().getQuery();
     }
