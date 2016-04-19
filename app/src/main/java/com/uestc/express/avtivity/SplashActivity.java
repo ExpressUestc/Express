@@ -1,19 +1,21 @@
 package com.uestc.express.avtivity;
 
-import android.app.Activity;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
 import com.uestc.express.R;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
 
         new Handler().postDelayed(new Runnable() {
             @Override

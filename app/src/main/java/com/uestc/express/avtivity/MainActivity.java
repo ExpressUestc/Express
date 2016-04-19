@@ -1,5 +1,6 @@
 package com.uestc.express.avtivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.widget.Button;
 
 import com.uestc.express.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
@@ -22,6 +23,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         initView();
 
