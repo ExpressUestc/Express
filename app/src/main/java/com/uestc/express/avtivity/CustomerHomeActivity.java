@@ -40,7 +40,8 @@ public class CustomerHomeActivity extends BaseActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                netTest();
+//                netTest();
+                startActivity(new Intent(CustomerHomeActivity.this, CustomerSendActivity.class));
             }
         });
 
@@ -59,21 +60,20 @@ public class CustomerHomeActivity extends BaseActivity {
         });
 
     }
-
     // volley sample
-    void netTest() {
-        StringRequest test = getRequestManager().demo("123", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("test", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("test", error.getMessage());
-            }
-        });
-        addRequest(test);
-    }
+//    void netTest() {
+//        StringRequest test = getRequestManager().demo("123", new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.i("test", response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.i("test", error.getMessage());
+//            }
+//        });
+//        addRequest(test);
+//    }
 
 }

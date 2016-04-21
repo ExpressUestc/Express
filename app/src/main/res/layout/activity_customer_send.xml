@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.uestc.express.avtivity.CustomerSendActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="寄件人姓名"
+        android:id="@+id/textViewMyName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextMyName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextMyName"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textViewMyName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="寄件人电话"
+        android:id="@+id/textViewMyPhone"
+        android:layout_below="@+id/textViewMyName"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextMyPhone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editTextMyPhone"
+        android:layout_below="@+id/editTextMyName"
+        android:layout_alignStart="@+id/editTextMyName"
+        android:layout_alignEnd="@+id/editTextMyName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="寄件人地址"
+        android:id="@+id/textViewMyAddress"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewMyPhone"
+        android:layout_alignBottom="@+id/editTextMyAddress" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/editTextMyAddress"
+        android:layout_below="@+id/textViewMyPhone"
+        android:layout_alignEnd="@+id/editTextMyPhone"
+        android:layout_alignStart="@+id/editTextMyPhone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="寄件人邮编"
+        android:id="@+id/textViewMyPostalCode"
+        android:layout_below="@+id/textViewMyAddress"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextMyPostalCode" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextMyPostalCode"
+        android:layout_below="@+id/editTextMyAddress"
+        android:layout_alignStart="@+id/editTextMyAddress"
+        android:layout_alignEnd="@+id/editTextMyAddress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="保价金额"
+        android:id="@+id/textViewExtraPrice"
+        android:layout_below="@+id/textViewMyPostalCode"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextExtraPrice" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editTextExtraPrice"
+        android:layout_below="@+id/editTextMyPostalCode"
+        android:layout_alignStart="@+id/editTextMyPostalCode"
+        android:layout_alignEnd="@+id/editTextMyPostalCode" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="收件人姓名"
+        android:id="@+id/textViewRcvName"
+        android:layout_below="@+id/textViewExtraPrice"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextRcvName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextRcvName"
+        android:layout_below="@+id/editTextExtraPrice"
+        android:layout_alignStart="@+id/editTextExtraPrice"
+        android:layout_alignEnd="@+id/editTextExtraPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="收件人电话"
+        android:id="@+id/textViewRcvPhone"
+        android:layout_below="@+id/textViewRcvName"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextRcvPhone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editTextRcvPhone"
+        android:layout_below="@+id/editTextRcvName"
+        android:layout_alignStart="@+id/editTextRcvName"
+        android:layout_alignEnd="@+id/editTextRcvName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="收件人地址"
+        android:id="@+id/textViewRcvAddress"
+        android:layout_below="@+id/textViewRcvPhone"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextRcvAddress" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/editTextRcvAddress"
+        android:layout_below="@+id/editTextRcvPhone"
+        android:layout_alignStart="@+id/editTextRcvPhone"
+        android:layout_alignEnd="@+id/editTextRcvPhone" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="收件人邮编"
+        android:id="@+id/textViewRcvPostalCode"
+        android:layout_below="@+id/textViewRcvAddress"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextRcvPostalCode" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextRcvPostalCode"
+        android:layout_below="@+id/editTextRcvAddress"
+        android:layout_alignStart="@+id/editTextRcvAddress"
+        android:layout_alignEnd="@+id/editTextRcvAddress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="快递公司号"
+        android:id="@+id/textViewExpressCompany"
+        android:layout_below="@+id/textViewRcvPostalCode"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextExpressCompany" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextExpressCompany"
+        android:layout_below="@+id/editTextRcvPostalCode"
+        android:layout_alignStart="@+id/editTextRcvPostalCode"
+        android:layout_alignEnd="@+id/editTextRcvPostalCode" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="备注信息"
+        android:id="@+id/textViewRemarks"
+        android:layout_below="@+id/textViewExpressCompany"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/editTextRemarks" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextRemarks"
+        android:layout_below="@+id/editTextExpressCompany"
+        android:layout_alignStart="@+id/editTextExpressCompany"
+        android:layout_alignEnd="@+id/editTextExpressCompany" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:id="@+id/buttonSubmit"
+        android:layout_below="@+id/textViewRemarks"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
