@@ -1,8 +1,10 @@
 package com.uestc.express.avtivity;
 
+import android.app.ActionBar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.uestc.express.R;
+import com.uestc.express.network.RequestManager;
 
 import org.json.JSONObject;
 
@@ -27,11 +30,9 @@ public class CustomerQueryActivity extends BaseActivity {
     private Button btnGetCode, btnSubmit;
     private EditText etName, etPhone, etCode;
     private TextView responseText;
-    private RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mQueue = Volley.newRequestQueue(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custiomer_query);
         initView();
@@ -58,7 +59,17 @@ public class CustomerQueryActivity extends BaseActivity {
                     map.put("name",etName.getText().toString());
                     map.put("phone",etPhone.getText().toString());
                     map.put("code",etCode.getText().toString());
-                    jsonObjectRequestPost(map);
+                    addRequest(getRequestManager().demo(map, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("response", response);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("error", error.toString());
+                        }
+                    }));
                 }
             }
         });
@@ -73,7 +84,18 @@ public class CustomerQueryActivity extends BaseActivity {
                     Map<String,String> map=new HashMap<String,String>();
                     map.put("name",etName.getText().toString());
                     map.put("phone",etPhone.getText().toString());
-                    jsonObjectRequestPost(map);
+ //                   jsonObjectRequestPost(map);
+                    addRequest(getRequestManager().demo(map, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("response", response);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("error", error.toString());
+                        }
+                    }));
                 }
             }
         });
@@ -139,38 +161,38 @@ public class CustomerQueryActivity extends BaseActivity {
 //        requestQueue.add(jsonObjectRequest);
 //    }
 
-    private void jsonObjectRequestPost(Map<String,String> map) {
-        String url = "http://192.168.95.2:928/";
-        Map<String, String> params = map;
-        final String mRequestBody = appendParameter(url, params);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                responseText.setText(response.toString());
-                System.out.println(response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                responseText.setText(error.getMessage());
-            }
-        }) {
-            @Override
-            public byte[] getBody() {
-                return mRequestBody.getBytes();
-            }
-        };
-        mQueue.add(jsonObjectRequest);
-    }
-
-    private String appendParameter(String url, Map<String, String> params) {
-        Uri uri = Uri.parse(url);
-        Uri.Builder builder = uri.buildUpon();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            builder.appendQueryParameter(entry.getKey(), entry.getValue());
-        }
-        return builder.build().getQuery();
-    }
+//    private void jsonObjectRequestPost(Map<String,String> map) {
+//        String url = "";
+//        Map<String, String> params = map;
+//        final String mRequestBody = appendParameter(url, params);
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                responseText.setText(response.toString());
+//                System.out.println(response.toString());
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                responseText.setText(error.getMessage());
+//            }
+//        }) {
+//            @Override
+//            public byte[] getBody() {
+//                return mRequestBody.getBytes();
+//            }
+//        };
+//        mQueue.add(jsonObjectRequest);
+//    }
+//
+//    private String appendParameter(String url, Map<String, String> params) {
+//        Uri uri = Uri.parse(url);
+//        Uri.Builder builder = uri.buildUpon();
+//        for (Map.Entry<String, String> entry : params.entrySet()) {
+//            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+//        }
+//        return builder.build().getQuery();
+//    }
 
 }
