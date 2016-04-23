@@ -1,6 +1,7 @@
 package com.uestc.express.avtivity;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import com.uestc.express.network.RequestManager;
 public class BaseActivity extends Activity {
 
     RequestQueue mQueue;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,21 @@ public class BaseActivity extends Activity {
     public void addRequest(StringRequest request) {
         if (mQueue != null) {
             mQueue.add(request);
+        }
+    }
+
+    public void showProgress(String msg) {
+        if (pd == null) {
+            pd = new ProgressDialog(this);
+        }
+        pd.setMessage(msg);
+        pd.show();
+    }
+
+    public void dismissProgress() {
+        if (pd != null) {
+            pd.dismiss();
+            pd = null;
         }
     }
 

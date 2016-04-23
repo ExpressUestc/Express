@@ -4,6 +4,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.uestc.express.Constants;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -23,18 +24,15 @@ public class RequestManager {
         return Instance;
     }
 
-    public StringRequest demo(final Map<String, String> params, Response.Listener<String> listener, Response.ErrorListener
-            errorListener) {
-        String url = "http://192.16.137.1:928/";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,url, listener, errorListener) {
+    public StringRequest request(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
+                                 Response.ErrorListener errorListener) {
+        String url = Constants.URL + apiStr;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-//               Map<String, String> map = new HashMap<>();
-//                map.put("params", params);
                 return params;
             }
         };
-
         return stringRequest;
     }
 
