@@ -8,23 +8,35 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".avtivity.SplashActivity">
+    tools:context="com.uestc.express.avtivity.CustomerSendResultActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/slogan"/>
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/qrcode_sample"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/welcome"/>
+            android:layout_marginTop="10dp"
+            android:text="快件ID：123123123123"
+            android:textColor="@color/black_gray"
+            android:textSize="18sp"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_result_notice"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"/>
+
 </RelativeLayout>

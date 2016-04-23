@@ -59,7 +59,7 @@ public class CustomerQueryActivity extends BaseActivity {
                     map.put("name",etName.getText().toString());
                     map.put("phone",etPhone.getText().toString());
                     map.put("code",etCode.getText().toString());
-                    addRequest(getRequestManager().demo(map, new Response.Listener<String>() {
+                    addRequest(getRequestManager().request("test",map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Log.i("response", response);
@@ -85,7 +85,7 @@ public class CustomerQueryActivity extends BaseActivity {
                     map.put("name",etName.getText().toString());
                     map.put("phone",etPhone.getText().toString());
  //                   jsonObjectRequestPost(map);
-                    addRequest(getRequestManager().demo(map, new Response.Listener<String>() {
+                    addRequest(getRequestManager().request("",map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Log.i("response", response);

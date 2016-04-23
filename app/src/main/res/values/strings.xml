@@ -1,4 +1,12 @@
 <resources>
+
+    <string name="title_activity_main">App首页</string>
+    <string name="title_activity_custiomer_query">快件查询</string>
+    <string name="title_activity_custiomer_home">顾客首页</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_customer_send">请填写快递信息</string>
+    <string name="title_activity_customer_send_result">填写完成</string>
+
     <string name="app_name">Express</string>
 
     <string name="welcome">欢迎使用</string>
@@ -9,8 +17,7 @@
     <string name="iwantsend">我要寄件</string>
     <string name="iwantreceive">我要收件</string>
     <string name="search">查询</string>
-    <string name="title_activity_custiomer_query">CustiomerQueryActivity</string>
-    <string name="title_activity_base">BaseActivity</string>
-    <string name="title_activity_customer_send">CustomerSendActivity</string>
+    
+    <string name="send_result_notice">请给快递员出示该二维码,或将ID告知快递员，以完成快递收件</string>
 
 </resources>
