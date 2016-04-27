@@ -27,19 +27,19 @@
             android:name=".avtivity.MainActivity"
             android:label="@string/title_activity_main"/>
         <activity
-            android:name=".avtivity.CustomerHomeActivity"
+            android:name=".avtivity.customer.CustomerHomeActivity"
             android:label="@string/title_activity_custiomer_home"/>
         <activity
-            android:name=".avtivity.CustomerQueryActivity"
+            android:name=".avtivity.customer.CustomerQueryActivity"
             android:label="@string/title_activity_custiomer_query"/>
         <activity
             android:name=".avtivity.BaseActivity"
             android:label="@string/title_activity_base"/>
         <activity
-            android:name=".avtivity.CustomerSendActivity"
+            android:name=".avtivity.customer.CustomerSendActivity"
             android:label="@string/title_activity_customer_send"/>
         <activity
-            android:name=".avtivity.CustomerSendResultActivity"
+            android:name=".avtivity.customer.CustomerSendResultActivity"
             android:label="@string/title_activity_customer_send_result">
         </activity>
         <activity
@@ -48,11 +48,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".avtivity.ExpressHomeActivity"
+            android:name=".avtivity.express.ExpressHomeActivity"
             android:label="@string/title_activity_express_home">
         </activity>
         <activity
-            android:name=".avtivity.TrackPositionActivity"
+            android:name=".avtivity.express.TrackPositionActivity"
             android:label="@string/title_activity_track_position">
         </activity>
     </application>
