@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
         express.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ExpressHomeActivity.startActivity(MainActivity.this);
             }
         });
 

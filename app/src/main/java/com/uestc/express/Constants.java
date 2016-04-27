@@ -7,4 +7,6 @@ public class Constants {
 
     public static String URL="127.0.0.1";
 
+    public static String KEY_QRCODE_TEXT = "qrcode_text";
+
 }
