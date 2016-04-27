@@ -1,4 +1,4 @@
-package com.uestc.express.avtivity;
+package com.uestc.express.avtivity.express;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.uestc.express.Constants;
 import com.uestc.express.R;
+import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.avtivity.QRCodeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

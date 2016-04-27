@@ -1,8 +1,9 @@
-package com.uestc.express.avtivity;
+package com.uestc.express.avtivity.customer;
 
 import android.os.Bundle;
 
 import com.uestc.express.R;
+import com.uestc.express.avtivity.BaseActivity;
 
 public class CustomerSendResultActivity extends BaseActivity {
 

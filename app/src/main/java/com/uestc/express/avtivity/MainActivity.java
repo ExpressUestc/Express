@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.uestc.express.R;
+import com.uestc.express.avtivity.customer.CustomerHomeActivity;
+import com.uestc.express.avtivity.express.ExpressHomeActivity;
 
 public class MainActivity extends BaseActivity {
 
