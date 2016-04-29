@@ -58,6 +58,8 @@ public class SendMessageActivity extends BaseActivity {
                     addRequest(getRequestManager().request("sendmessage", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            hasID=false;
+                            pkgID="";
                             dismissProgress();
                             tvMessage.setText(response);
                         }

@@ -63,7 +63,8 @@
         <activity
             android:name=".avtivity.express.TrackPositionActivity"
             android:label="@string/title_activity_track_position"></activity>
-        <activity android:name=".avtivity.express.SendMessageActivity"></activity>
+        <activity android:name=".avtivity.express.SendMessageActivity"
+            android:label="发送短信"></activity>
     </application>
 
 </manifest>
