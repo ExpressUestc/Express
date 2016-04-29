@@ -11,7 +11,7 @@ import com.uestc.express.avtivity.BaseActivity;
 
 public class CustomerHomeActivity extends BaseActivity {
 
-    static void startActivity(Activity activity) {
+    public static void startActivity(Activity activity) {
         Intent intent = new Intent(activity, CustomerHomeActivity.class);
         activity.startActivity(intent);
     }

@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:textColor="@color/black"
         android:id="@+id/editTextName"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -28,6 +29,7 @@
         android:layout_alignTop="@+id/editTextName"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/editTextPhone"
+        android:textColor="@color/text_black_light"
         android:layout_toStartOf="@+id/editTextName" />
 
     <TextView
@@ -38,6 +40,7 @@
         android:id="@+id/textViewPhone"
         android:layout_below="@+id/textViewName"
         android:layout_alignParentStart="true"
+        android:textColor="@color/text_black_light"
         android:layout_alignBottom="@+id/editTextPhone"
         android:layout_alignEnd="@+id/textViewName" />
 
@@ -47,18 +50,9 @@
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/editTextPhone"
+        android:textColor="@color/black"
         android:layout_below="@+id/editTextName"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="获取验证码"
-        android:id="@+id/buttonGetCode"
-        android:layout_below="@+id/textViewCode"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/buttonSubmit"
-        android:layout_toStartOf="@+id/editTextCode" />
 
     <Button
         android:layout_width="wrap_content"
@@ -72,10 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="验证码"
+        android:text="ID"
         android:id="@+id/textViewCode"
         android:layout_below="@+id/textViewPhone"
         android:layout_alignParentStart="true"
+        android:textColor="@color/text_black_light"
         android:layout_alignEnd="@+id/textViewPhone"
         android:layout_alignBottom="@+id/editTextCode" />
 
@@ -83,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextCode"
+        android:textColor="@color/black"
         android:layout_below="@+id/editTextPhone"
         android:layout_alignStart="@+id/editTextPhone"
         android:layout_alignEnd="@+id/editTextPhone" />
@@ -91,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_below="@+id/buttonGetCode"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/buttonSubmit" />
+        android:textColor="@color/text_black_light"
+        android:layout_below="@+id/buttonSubmit"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
