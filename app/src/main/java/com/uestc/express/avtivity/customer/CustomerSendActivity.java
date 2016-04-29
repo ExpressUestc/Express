@@ -36,7 +36,7 @@ public class CustomerSendActivity extends BaseActivity {
         etRcvPostalCode = (EditText) findViewById(R.id.editTextRcvPostalCode);
         etExpressCompany = (EditText) findViewById(R.id.editTextExpressCompany);
         etRemarks = (EditText) findViewById(R.id.editTextRemarks);
-        btnSend= (Button) findViewById(R.id.buttonSubmit);
+        btnSend = (Button) findViewById(R.id.buttonSubmit);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,16 +64,16 @@ public class CustomerSendActivity extends BaseActivity {
                     showProgress("正在提交，请稍后");
 
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("MyName",etMyName.getText().toString());
-                    map.put("MyPhone",etMyPhone.getText().toString());
-                    map.put("MyAddress",etMyAddress.getText().toString());
-                    map.put("MyPostalCode",etMyPostalCode.getText().toString());
-                    map.put("ExtraPrice",etExtraPrice.getText().toString());
-                    map.put("RcvName",etRcvName.getText().toString());
-                    map.put("RcvAddress",etRcvAddress.getText().toString());
-                    map.put("RcvPostalCode",etRcvPostalCode.getText().toString());
-                    map.put("ExpressCompany",etExpressCompany.getText().toString());
-                    map.put("Remarks",etRemarks.getText().toString());
+                    map.put("MyName", etMyName.getText().toString());
+                    map.put("MyPhone", etMyPhone.getText().toString());
+                    map.put("MyAddress", etMyAddress.getText().toString());
+                    map.put("MyPostalCode", etMyPostalCode.getText().toString());
+                    map.put("ExtraPrice", etExtraPrice.getText().toString());
+                    map.put("RcvName", etRcvName.getText().toString());
+                    map.put("RcvAddress", etRcvAddress.getText().toString());
+                    map.put("RcvPostalCode", etRcvPostalCode.getText().toString());
+                    map.put("ExpressCompany", etExpressCompany.getText().toString());
+                    map.put("Remarks", etRemarks.getText().toString());
 //                    addRequest(getRequestManager().request("test", map, new Response.Listener<String>() {
 //                        @Override
 //                        public void onResponse(String response) {
@@ -99,9 +99,9 @@ public class CustomerSendActivity extends BaseActivity {
 //                    }));
 
                     dismissProgress();
-                    Intent intent=new Intent(CustomerSendActivity.this,CustomerSendResultActivity.class);
-                    intent.putExtra("code","code");
-                    intent.putExtra("url","url");
+                    Intent intent = new Intent(CustomerSendActivity.this, CustomerSendResultActivity.class);
+                    intent.putExtra("code", "code");
+                    intent.putExtra("url", "url");
                     startActivity(intent);
                     finish();
 

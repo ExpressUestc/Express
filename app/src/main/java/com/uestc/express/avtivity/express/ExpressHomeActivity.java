@@ -47,7 +47,7 @@ public class ExpressHomeActivity extends BaseActivity {
         sendNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SendMessageActivity.startActivity(ExpressHomeActivity.this);
             }
         });
 

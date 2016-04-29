@@ -45,46 +45,26 @@ public class CustomerQueryActivity extends BaseActivity {
                 } else if (TextUtils.isEmpty(etPhone.getText())) {
                     Toast.makeText(CustomerQueryActivity.this, "请输入手机号~", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(etCode.getText())) {
-                    Toast.makeText(CustomerQueryActivity.this, "请输入验证码~", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerQueryActivity.this, "请输入CODE~", Toast.LENGTH_SHORT).show();
                 } else {
-                    Map<String,String> map=new HashMap<String,String>();
-                    map.put("name",etName.getText().toString());
-                    map.put("phone",etPhone.getText().toString());
-                    map.put("code",etCode.getText().toString());
-                    addRequest(getRequestManager().request("test",map, new Response.Listener<String>() {
+                    showProgress("正在提交，请稍后");
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("name", etName.getText().toString());
+                    map.put("phone", etPhone.getText().toString());
+                    map.put("code", etCode.getText().toString());
+                    addRequest(getRequestManager().request("query", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            dismissProgress();
+                            responseText.setText(response);
                             Log.i("response", response);
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.i("error", error.toString());
-                        }
-                    }));
-                }
-            }
-        });
-        btnGetCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(etName.getText())) {
-                    Toast.makeText(CustomerQueryActivity.this, "请输入姓名~", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(etPhone.getText())) {
-                    Toast.makeText(CustomerQueryActivity.this, "请输入手机号~", Toast.LENGTH_SHORT).show();
-                } else {
-                    Map<String,String> map=new HashMap<String,String>();
-                    map.put("name",etName.getText().toString());
-                    map.put("phone",etPhone.getText().toString());
- //                   jsonObjectRequestPost(map);
-                    addRequest(getRequestManager().request("",map, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i("response", response);
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                            dismissProgress();
+                            //                           Toast.makeText(CustomerQueryActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                            responseText.setText(error.toString());
                             Log.i("error", error.toString());
                         }
                     }));
@@ -92,6 +72,33 @@ public class CustomerQueryActivity extends BaseActivity {
             }
         });
     }
+//        btnGetCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (TextUtils.isEmpty(etName.getText())) {
+//                    Toast.makeText(CustomerQueryActivity.this, "请输入姓名~", Toast.LENGTH_SHORT).show();
+//                } else if (TextUtils.isEmpty(etPhone.getText())) {
+//                    Toast.makeText(CustomerQueryActivity.this, "请输入手机号~", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Map<String,String> map=new HashMap<String,String>();
+//                    map.put("name",etName.getText().toString());
+//                    map.put("phone",etPhone.getText().toString());
+// //                   jsonObjectRequestPost(map);
+//                    addRequest(getRequestManager().request("",map, new Response.Listener<String>() {
+//                        @Override
+//                        public void onResponse(String response) {
+//                            Log.i("response", response);
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Log.i("error", error.toString());
+//                        }
+//                    }));
+//                }
+//            }
+//        });
+//    }
 
     //--------------------------------------------------------------------------------------------------
 //    String ip = "";
