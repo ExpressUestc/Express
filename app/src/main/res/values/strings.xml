@@ -12,6 +12,8 @@
     <string name="title_activity_express_home">我是快递员</string>
     <string name="title_activity_track_position">运送位置记录</string>
     <string name="title_activity_send_message">发送短信</string>
+    <string name="title_activity_customer_rcv_qrcode">签收验证</string>
+    <string name="title_activity_customer_rcv_message">完成签收</string>
     <string name="welcome">欢迎使用</string>
 
     <string name="iamexpress">我是快递员</string>
