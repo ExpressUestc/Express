@@ -45,7 +45,7 @@ public class CustomerHomeActivity extends BaseActivity {
         receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                CustomerRcvQrcodeActivity.startActivity(CustomerHomeActivity.this);
             }
         });
 

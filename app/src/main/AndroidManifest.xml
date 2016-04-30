@@ -62,9 +62,18 @@
             android:label="@string/title_activity_express_home"></activity>
         <activity
             android:name=".avtivity.express.TrackPositionActivity"
-            android:label="@string/title_activity_track_position"></activity>
-        <activity android:name=".avtivity.express.SendMessageActivity"
-            android:label="@string/title_activity_send_message"></activity>
+            android:label="@string/title_activity_track_position"/>
+        <activity
+            android:name=".avtivity.express.SendMessageActivity"
+            android:label="@string/title_activity_send_message"/>
+        <activity
+            android:name=".avtivity.customer.CustomerRcvQrcodeActivity"
+            android:label="@string/title_activity_customer_rcv_qrcode">
+        </activity>
+        <activity
+            android:name=".avtivity.customer.CustomerRcvMessageActivity"
+            android:label="@string/title_activity_customer_rcv_message">
+        </activity>
     </application>
 
 </manifest>
