@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class TrackPositionActivity extends BaseActivity {
 
     private TextView packageID;
     private TextView position;
+    private EditText phone;
     private TextView trackResult;
     private Button track;
 
@@ -123,6 +125,7 @@ public class TrackPositionActivity extends BaseActivity {
     private void initView() {
         packageID = (TextView) findViewById(R.id.packageID);
         position = (TextView) findViewById(R.id.position);
+        phone = (EditText) findViewById(R.id.phone);
         trackResult = (TextView) findViewById(R.id.track_result);
         track = (Button) findViewById(R.id.track);
 
@@ -142,8 +145,13 @@ public class TrackPositionActivity extends BaseActivity {
         if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                pkgID = result;
-                packageID.setText(result);
+                try {
+                    JSONObject jsn=new JSONObject(result);
+                    pkgID=jsn.getString("code");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                packageID.setText(pkgID);
                 trackResult.setText("正在操作，请稍后...");
                 showProgress("正在操作，请稍后...");
                 doTrack();
@@ -154,8 +162,9 @@ public class TrackPositionActivity extends BaseActivity {
     private void doTrack() {
         Map<String, String> map = new HashMap<>();
         map.put("code", pkgID);
-        map.put("address", address);
-        addRequest(getRequestManager().request("", map, new Response.Listener<String>() {
+        map.put("pos", address);
+        map.put("deliverPhone", phone.getText().toString());
+        addRequest(getRequestManager().getRequest("sending", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();

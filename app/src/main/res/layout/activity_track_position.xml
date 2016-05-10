@@ -61,6 +61,25 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="我的手机号"
+        android:textColor="@color/douban_gray"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="请输入您的手机号"
+        android:inputType="number"
+        android:maxLength="11"
+        android:textColor="@color/douban_red"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="扫描结果"
         android:textColor="@color/douban_gray_55_percent"

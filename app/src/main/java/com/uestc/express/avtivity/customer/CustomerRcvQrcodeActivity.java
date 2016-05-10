@@ -94,7 +94,8 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     private void doPostFailureResult() {
         HashMap<String, String> map = new HashMap<>();
         map.put("flag", "false");
-        addRequest(getRequestManager().request("", map, new Response.Listener<String>() {
+        map.put("code",rcvPkgID);
+        addRequest(getRequestManager().getRequest("auth", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -119,7 +120,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
         map.put("code", rcvPkgID);
-        addRequest(getRequestManager().request("", map, new Response.Listener<String>() {
+        addRequest(getRequestManager().getRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();

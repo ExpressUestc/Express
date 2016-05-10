@@ -6,8 +6,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.uestc.express.Constants;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +22,20 @@ public class RequestManager {
         return Instance;
     }
 
-    public StringRequest request(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
+    public StringRequest getRequest(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
+                                     Response.ErrorListener errorListener) {
+        String url = Constants.URL + apiStr + "?";
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            url += entry.getKey();
+            url += "=";
+            url += entry.getValue();
+            url += "&";
+        }
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, listener, errorListener);
+        return stringRequest;
+    }
+
+    public StringRequest postRequest(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
                                  Response.ErrorListener errorListener) {
         String url = Constants.URL + apiStr;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener) {
