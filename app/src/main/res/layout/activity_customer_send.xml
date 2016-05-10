@@ -171,7 +171,7 @@
             android:layout_below="@id/editTextRcvName"
             android:layout_toEndOf="@id/textViewRcvPhone"
             android:inputType="phone"
-            android:maxLength="10"
+            android:maxLength="11"
             android:textColor="@color/black"/>
 
         <TextView
@@ -221,14 +221,35 @@
             android:textColor="@color/black"/>
 
         <TextView
+            android:id="@+id/textViewGoods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/editTextGoods"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/textViewRcvPostalCode"
+            android:gravity="center"
+            android:text="货物描述"
+            android:textColor="@color/text_black_light"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/editTextGoods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/editTextRcvPostalCode"
+            android:layout_toEndOf="@id/textViewGoods"
+            android:textColor="@color/black"/>
+
+        <TextView
             android:id="@+id/textViewExpressCompany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/editTextExpressCompany"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRcvPostalCode"
+            android:layout_below="@id/textViewGoods"
             android:gravity="center"
-            android:text="快递公司号"
+            android:text="快递公司编号"
             android:textColor="@color/text_black_light"
             android:textSize="16sp"/>
 
@@ -237,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextRcvPostalCode"
+            android:layout_below="@id/editTextGoods"
             android:layout_toEndOf="@id/textViewExpressCompany"
             android:inputType="number"
             android:maxLength="10"

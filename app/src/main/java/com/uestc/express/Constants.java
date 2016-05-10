@@ -5,7 +5,7 @@ package com.uestc.express;
  */
 public class Constants {
 
-    public static String URL="127.0.0.1";
+    public static String URL="http://101.201.79.95/express/";
 
     public static String KEY_QRCODE_TEXT = "qrcode_text";
 

@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.uestc.express.avtivity.express.SendMessageActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="获取二维码"
+    <ImageView
         android:id="@+id/buttonGetCode"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_scan_gray"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:hint="请输入您的手机号"
+        android:textSize="16sp"
+        android:inputType="number"
+        android:maxLength="11"
+        android:textColor="@color/dark_gray"/>
+
+    <TextView
+        android:id="@+id/textViewpackageID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/douban_red"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/dark_gray"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发送二维码至服务器"
         android:id="@+id/buttonSendCode"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/textViewpackageID" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewpackageID"
-        android:layout_below="@+id/buttonGetCode"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/douban_red"
-        android:textSize="20sp"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewMessage"
-        android:layout_below="@+id/textViewpackageID"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/textViewpackageID" />
-</RelativeLayout>
+        android:text="确认发送派送通知"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

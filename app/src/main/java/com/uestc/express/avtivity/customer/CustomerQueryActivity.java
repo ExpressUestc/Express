@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class CustomerQueryActivity extends BaseActivity {
 
-    private Button btnGetCode, btnSubmit;
+    private Button btnSubmit;
     private EditText etName, etPhone, etCode;
     private TextView responseText;
 
@@ -31,7 +31,6 @@ public class CustomerQueryActivity extends BaseActivity {
     }
 
     private void initView() {
-        btnGetCode = (Button) findViewById(R.id.buttonGetCode);
         btnSubmit = (Button) findViewById(R.id.buttonSubmit);
         etName = (EditText) findViewById(R.id.editTextName);
         etPhone = (EditText) findViewById(R.id.editTextPhone);
@@ -49,10 +48,10 @@ public class CustomerQueryActivity extends BaseActivity {
                 } else {
                     showProgress("正在提交，请稍后");
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("name", etName.getText().toString());
-                    map.put("phone", etPhone.getText().toString());
+                    map.put("rcvName", etName.getText().toString());
+                    map.put("rcvPhone", etPhone.getText().toString());
                     map.put("code", etCode.getText().toString());
-                    addRequest(getRequestManager().request("query", map, new Response.Listener<String>() {
+                    addRequest(getRequestManager().getRequest("find", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             dismissProgress();

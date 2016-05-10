@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.uestc.express.R;
 import com.uestc.express.avtivity.customer.CustomerHomeActivity;
@@ -18,8 +19,8 @@ public class MainActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
-    Button customer;
-    Button express;
+    LinearLayout customer;
+    LinearLayout express;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        customer = (Button) findViewById(R.id.customer);
-        express = (Button) findViewById(R.id.express);
+        customer = (LinearLayout) findViewById(R.id.customer);
+        express = (LinearLayout) findViewById(R.id.express);
 
         customer.setOnClickListener(new View.OnClickListener() {
             @Override

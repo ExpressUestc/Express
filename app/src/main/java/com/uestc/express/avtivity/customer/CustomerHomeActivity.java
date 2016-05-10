@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
@@ -16,9 +16,9 @@ public class CustomerHomeActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
-    Button send;
-    Button receive;
-    Button search;
+    LinearLayout send;
+    LinearLayout receive;
+    LinearLayout search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,13 @@ public class CustomerHomeActivity extends BaseActivity {
     }
 
     private void initView() {
-        send = (Button) findViewById(R.id.send);
-        receive = (Button) findViewById(R.id.receive);
-        search = (Button) findViewById(R.id.search);
+        send = (LinearLayout) findViewById(R.id.send);
+        receive = (LinearLayout) findViewById(R.id.receive);
+        search = (LinearLayout) findViewById(R.id.search);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                netTest();
                 startActivity(new Intent(CustomerHomeActivity.this, CustomerSendActivity.class));
             }
         });
@@ -57,20 +56,4 @@ public class CustomerHomeActivity extends BaseActivity {
         });
 
     }
-    // volley sample
-//    void netTest() {
-//        StringRequest test = getRequestManager().demo("123", new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Log.i("test", response);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.i("test", error.getMessage());
-//            }
-//        });
-//        addRequest(test);
-//    }
-
 }

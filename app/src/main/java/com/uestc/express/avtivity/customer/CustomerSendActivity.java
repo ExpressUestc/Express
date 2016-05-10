@@ -3,20 +3,26 @@ package com.uestc.express.avtivity.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerSendActivity extends BaseActivity {
     private Button btnSend;
-    private EditText etMyName, etMyPhone, etMyAddress, etMyPostalCode, etExtraPrice, etRcvName, etRcvPhone, etRcvAddress, etRcvPostalCode, etExpressCompany, etRemarks;
+    private EditText etMyName, etMyPhone, etMyAddress, etMyPostalCode, etExtraPrice, etRcvName, etRcvPhone, etRcvAddress, etRcvPostalCode, etGoods, etExpressCompany, etRemarks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,10 @@ public class CustomerSendActivity extends BaseActivity {
         etMyPostalCode = (EditText) findViewById(R.id.editTextMyPostalCode);
         etExtraPrice = (EditText) findViewById(R.id.editTextExtraPrice);
         etRcvName = (EditText) findViewById(R.id.editTextRcvName);
+        etRcvPhone = (EditText) findViewById(R.id.editTextRcvPhone);
         etRcvAddress = (EditText) findViewById(R.id.editTextRcvAddress);
         etRcvPostalCode = (EditText) findViewById(R.id.editTextRcvPostalCode);
+        etGoods = (EditText) findViewById(R.id.editTextGoods);
         etExpressCompany = (EditText) findViewById(R.id.editTextExpressCompany);
         etRemarks = (EditText) findViewById(R.id.editTextRemarks);
         btnSend = (Button) findViewById(R.id.buttonSubmit);
@@ -64,47 +72,43 @@ public class CustomerSendActivity extends BaseActivity {
                     showProgress("正在提交，请稍后");
 
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("MyName", etMyName.getText().toString());
-                    map.put("MyPhone", etMyPhone.getText().toString());
-                    map.put("MyAddress", etMyAddress.getText().toString());
-                    map.put("MyPostalCode", etMyPostalCode.getText().toString());
-                    map.put("ExtraPrice", etExtraPrice.getText().toString());
-                    map.put("RcvName", etRcvName.getText().toString());
-                    map.put("RcvAddress", etRcvAddress.getText().toString());
-                    map.put("RcvPostalCode", etRcvPostalCode.getText().toString());
-                    map.put("ExpressCompany", etExpressCompany.getText().toString());
-                    map.put("Remarks", etRemarks.getText().toString());
-//                    addRequest(getRequestManager().request("test", map, new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            dismissProgress();
-//                            try {
-//                                JSONObject jsn=new JSONObject(response);
-//                                Intent intent=new Intent(CustomerSendActivity.this,CustomerSendResultActivity.class);
-//                                intent.putExtra("code",jsn.getString("code"));
-//                                intent.putExtra("url",jsn.getString("url"));
-//                                startActivity(intent);
-//                                finish();
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            dismissProgress();
-//                            Toast.makeText(CustomerSendActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-//                            Log.i("error", error.toString());
-//                        }
-//                    }));
-
-                    dismissProgress();
-                    Intent intent = new Intent(CustomerSendActivity.this, CustomerSendResultActivity.class);
-                    intent.putExtra("code", "code");
-                    intent.putExtra("url", "url");
-                    startActivity(intent);
-                    finish();
-
+                    map.put("myName", etMyName.getText().toString());
+                    map.put("myPhone", etMyPhone.getText().toString());
+                    map.put("myAddress", etMyAddress.getText().toString());
+                    map.put("myPostcode", etMyPostalCode.getText().toString());
+                    map.put("extraPrice", etExtraPrice.getText().toString());
+                    map.put("rcvName", etRcvName.getText().toString());
+                    map.put("rcvPhone", etRcvPhone.getText().toString());
+                    map.put("rcvAddress", etRcvAddress.getText().toString());
+                    map.put("rcvPostcode", etRcvPostalCode.getText().toString());
+                    map.put("goods", etGoods.getText().toString());
+                    map.put("expressCompany", etExpressCompany.getText().toString());
+                    map.put("remarks", etRemarks.getText().toString());
+                    addRequest(getRequestManager().getRequest("", map, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("send",response);
+                            dismissProgress();
+                            try {
+                                JSONObject jsn=new JSONObject(response);
+                                Intent intent=new Intent(CustomerSendActivity.this,CustomerSendResultActivity.class);
+                                intent.putExtra("code",jsn.getString("code"));
+                                intent.putExtra("rcvName",etRcvName.getText().toString());
+                                intent.putExtra("rcvPhone",etRcvPhone.getText().toString());
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            dismissProgress();
+                            Toast.makeText(CustomerSendActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+                            Log.i("error", error.toString());
+                        }
+                    }));
                 }
             }
 

@@ -116,7 +116,7 @@ public class CustomerRcvMessageActivity extends BaseActivity {
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
         map.put("code", rcvPkgID);
-        addRequest(getRequestManager().request("", map, new Response.Listener<String>() {
+        addRequest(getRequestManager().getRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 setGetCodeButton();
@@ -134,7 +134,7 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("code", rcvPkgID);
         map.put("verify", et_verifyCode.getText().toString());
-        addRequest(getRequestManager().request("", map, new Response.Listener<String>() {
+        addRequest(getRequestManager().getRequest("authVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
