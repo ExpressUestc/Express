@@ -12,6 +12,7 @@ import com.google.zxing.common.BitMatrix;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -37,10 +38,8 @@ public class Utils {
     /**
      * 生成一个二维码图像
      *
-     * @param str
-     * 传入的字符串
-     * @param widthAndHeight
-     * 图像的宽高
+     * @param str            传入的字符串
+     * @param widthAndHeight 图像的宽高
      * @return
      */
     public static Bitmap createQRCode(String str, int widthAndHeight)
@@ -66,5 +65,13 @@ public class Utils {
         return bitmap;
     }
 
+    public static String unicode2utf8(String str) {
+        try {
+            return new String(str.getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 }

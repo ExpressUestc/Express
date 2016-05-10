@@ -1,9 +1,9 @@
 package com.uestc.express.avtivity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;

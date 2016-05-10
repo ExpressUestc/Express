@@ -6,295 +6,335 @@
     android:layout_height="match_parent"
     tools:context=".avtivity.customer.CustomerSendActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
-            android:id="@+id/textViewMyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextMyName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="寄件人姓名"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:id="@+id/editTextMyName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/textViewMyName"
-            android:inputType="textPersonName"
-            android:maxLength="10"
-            android:textColor="@color/black"/>
+            android:text="寄件人信息"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/textViewMyPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextMyPhone"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewMyName"
-            android:gravity="center"
-            android:text="寄件人电话"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_gray"/>
 
-        <EditText
-            android:id="@+id/editTextMyPhone"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextMyName"
-            android:layout_toEndOf="@id/textViewMyPhone"
-            android:inputType="number"
-            android:maxLength="11"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewMyAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextMyAddress"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewMyPhone"
-            android:gravity="center"
-            android:text="寄件人地址"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/name"/>
 
-        <EditText
-            android:id="@+id/editTextMyAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/textViewMyPhone"
-            android:layout_toEndOf="@id/textViewMyAddress"
-            android:inputType="textPostalAddress"
-            android:maxLength="50"
-            android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/editTextMyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="寄件人姓名"
+                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewMyPostalCode"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextMyPostalCode"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewMyAddress"
-            android:gravity="center"
-            android:text="寄件人邮编"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTextMyPostalCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextMyAddress"
-            android:layout_toEndOf="@id/textViewMyPostalCode"
-            android:inputType="number"
-            android:maxLength="6"
-            android:textColor="@color/black"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/phone"/>
 
-        <TextView
-            android:id="@+id/textViewExtraPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextExtraPrice"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewMyPostalCode"
-            android:gravity="center"
-            android:text="保价金额"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            <EditText
+                android:id="@+id/editTextMyPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="寄件人电话"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/editTextExtraPrice"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextMyPostalCode"
-            android:layout_toEndOf="@id/textViewExtraPrice"
-            android:inputType="numberDecimal"
-            android:maxLength="10"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewRcvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextRcvName"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewExtraPrice"
-            android:gravity="center"
-            android:text="收件人姓名"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/address"/>
 
-        <EditText
-            android:id="@+id/editTextRcvName"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/editTextMyAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="寄件人地址"
+                android:maxLength="50"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextExtraPrice"
-            android:layout_toEndOf="@id/textViewRcvName"
-            android:inputType="textPersonName"
-            android:maxLength="10"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/postcode"/>
+
+            <EditText
+                android:id="@+id/editTextMyPostalCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="寄件人邮编"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewRcvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextRcvPhone"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRcvName"
-            android:gravity="center"
-            android:text="收件人电话"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:id="@+id/editTextRcvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextRcvName"
-            android:layout_toEndOf="@id/textViewRcvPhone"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="20dp"
+            android:text="收件人信息"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/textViewRcvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextRcvAddress"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRcvPhone"
-            android:gravity="center"
-            android:text="收件人地址"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_gray"/>
 
-        <EditText
-            android:id="@+id/editTextRcvAddress"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextRcvPhone"
-            android:layout_toEndOf="@id/textViewRcvAddress"
-            android:inputType="textPostalAddress"
-            android:maxLength="50"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/name"/>
+
+            <EditText
+                android:id="@+id/editTextRcvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="收件人姓名"
+                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/phone"/>
+
+            <EditText
+                android:id="@+id/editTextRcvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="收件人电话"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/address"/>
+
+            <EditText
+                android:id="@+id/editTextRcvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="收件人地址"
+                android:maxLength="50"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/postcode"/>
+
+            <EditText
+                android:id="@+id/editTextRcvPostalCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="收件人邮编"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewRcvPostalCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextRcvPostalCode"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRcvAddress"
-            android:gravity="center"
-            android:text="收件人邮编"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
-
-        <EditText
-            android:id="@+id/editTextRcvPostalCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextRcvAddress"
-            android:layout_toEndOf="@id/textViewRcvPostalCode"
-            android:inputType="number"
-            android:maxLength="6"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="20dp"
+            android:text="其它信息"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/textViewGoods"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextGoods"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRcvPostalCode"
-            android:gravity="center"
-            android:text="货物描述"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_gray"/>
 
-        <EditText
-            android:id="@+id/editTextGoods"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextRcvPostalCode"
-            android:layout_toEndOf="@id/textViewGoods"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewExpressCompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextExpressCompany"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewGoods"
-            android:gravity="center"
-            android:text="快递公司编号"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/extra_price"/>
 
-        <EditText
-            android:id="@+id/editTextExpressCompany"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextGoods"
-            android:layout_toEndOf="@id/textViewExpressCompany"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/editTextExtraPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="保价金额（可为0）"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewRemarks"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editTextRemarks"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewExpressCompany"
-            android:gravity="center"
-            android:text="备注信息"
-            android:textColor="@color/text_black_light"
-            android:textSize="16sp"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTextRemarks"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/description"/>
+
+            <EditText
+                android:id="@+id/editTextGoods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="货物描述"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/editTextExpressCompany"
-            android:layout_toEndOf="@id/textViewRemarks"
-            android:maxLength="100"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/house"/>
+
+            <EditText
+                android:id="@+id/editTextExpressCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="快递公司编号"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/remarks"/>
+
+            <EditText
+                android:id="@+id/editTextRemarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="备注信息"
+                android:maxLength="100"
+                android:textColor="@color/black"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/textViewRemarks"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:text="提交"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </ScrollView>

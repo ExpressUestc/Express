@@ -9,5 +9,9 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:colorButtonNormal">@color/douban_blue_80_percent</item>
     </style>
+    
+    <style name="DialogStyle" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:textColorPrimary">@color/dark_gray</item>
+    </style>
 
 </resources>

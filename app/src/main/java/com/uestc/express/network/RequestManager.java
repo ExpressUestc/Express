@@ -24,12 +24,18 @@ public class RequestManager {
 
     public StringRequest getRequest(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
                                      Response.ErrorListener errorListener) {
-        String url = Constants.URL + apiStr + "?";
+        String url = Constants.URL + apiStr;
+        boolean flag = true;
         for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (flag) {
+                flag = false;
+                url += "?";
+            } else {
+                url += "&";
+            }
             url += entry.getKey();
             url += "=";
             url += entry.getValue();
-            url += "&";
         }
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, listener, errorListener);
         return stringRequest;
