@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,8 +56,7 @@ public class CustomerQueryActivity extends BaseActivity {
                         @Override
                         public void onResponse(String response) {
                             dismissProgress();
-                            responseText.setText(response);
-                            Log.i("response", response);
+                            responseText.setText(Utils.unicode2utf8(response));
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -64,7 +64,6 @@ public class CustomerQueryActivity extends BaseActivity {
                             dismissProgress();
                             //                           Toast.makeText(CustomerQueryActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                             responseText.setText(error.toString());
-                            Log.i("error", error.toString());
                         }
                     }));
                 }

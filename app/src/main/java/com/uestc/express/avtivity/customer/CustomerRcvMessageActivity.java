@@ -16,6 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.util.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -107,6 +111,7 @@ public class CustomerRcvMessageActivity extends BaseActivity {
                         btn_getCode.setBackgroundColor(ContextCompat.getColor(CustomerRcvMessageActivity.this,
                                 R.color.orange));
                         btn_getCode.setEnabled(true);
+                        btn_getCode.setText("重新获取");
                     }
                 });
             }
@@ -138,7 +143,14 @@ public class CustomerRcvMessageActivity extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
-                AlertDialog dialog = new AlertDialog.Builder(CustomerRcvMessageActivity.this).setMessage("快递签收成功！")
+                String feedback = "";
+                try {
+                    JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
+                    feedback=jsn.getString("feedback");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                AlertDialog dialog = new AlertDialog.Builder(CustomerRcvMessageActivity.this,R.style.DialogStyle).setMessage(feedback)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

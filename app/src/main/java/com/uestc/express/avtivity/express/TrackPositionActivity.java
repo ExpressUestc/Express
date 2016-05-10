@@ -20,6 +20,7 @@ import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
+import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -169,7 +170,7 @@ public class TrackPositionActivity extends BaseActivity {
             public void onResponse(String response) {
                 dismissProgress();
                 try {
-                    JSONObject jsn = new JSONObject(response);
+                    JSONObject jsn = new JSONObject(Utils.unicode2utf8(response));
                     trackResult.setText(jsn.getString("feedback"));
                 } catch (JSONException e) {
                     e.printStackTrace();

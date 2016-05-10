@@ -18,6 +18,7 @@ import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
 import com.uestc.express.avtivity.customer.CustomerQueryActivity;
+import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +73,7 @@ public class SendMessageActivity extends BaseActivity {
                             pkgID="";
                             dismissProgress();
                             tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.douban_green));
-                            tvMessage.setText(response);
+                            tvMessage.setText(Utils.unicode2utf8(response));
                         }
                     }, new Response.ErrorListener() {
                         @Override
