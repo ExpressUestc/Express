@@ -15,6 +15,9 @@ import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.util.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,13 +59,17 @@ public class CustomerQueryActivity extends BaseActivity {
                         @Override
                         public void onResponse(String response) {
                             dismissProgress();
-                            responseText.setText(Utils.unicode2utf8(response));
+                            try {
+                                JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
+                                responseText.setText("最新位置："+jsn.getString("pos"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
-                            //                           Toast.makeText(CustomerQueryActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                             responseText.setText(error.toString());
                         }
                     }));

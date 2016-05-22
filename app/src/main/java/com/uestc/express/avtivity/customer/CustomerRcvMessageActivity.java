@@ -77,8 +77,17 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         btn_rcv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress("正在操作，请稍后...");
-                doReceive();
+//                showProgress("正在操作，请稍后...");
+                AlertDialog dialog = new AlertDialog.Builder(CustomerRcvMessageActivity.this,R.style.DialogStyle).setMessage("签收成功！")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                finish();
+                            }
+                        }).create();
+                dialog.show();
+//                doReceive();
             }
         });
 

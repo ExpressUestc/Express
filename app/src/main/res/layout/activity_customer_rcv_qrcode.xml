@@ -77,6 +77,15 @@
             android:text="*请确认快递ID与收件人手机号无误"
             android:textColor="@color/douban_red"
             android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/error_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/douban_red"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </RelativeLayout>
