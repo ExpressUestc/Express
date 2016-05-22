@@ -3,6 +3,7 @@ package com.uestc.express.avtivity.customer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +18,11 @@ import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
+import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -37,6 +40,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     private TextView tvRcvPhone;
     private EditText etRcvPhone;
     private TextView notice;
+    private TextView error_notice;
 
     private String rcvPkgID;
     private String rcvName;
@@ -81,6 +85,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
         tvRcvPhone = (TextView) findViewById(R.id.tv_rcv_phone);
         etRcvPhone = (EditText) findViewById(R.id.et_rcv_phone);
         notice = (TextView) findViewById(R.id.notice);
+        error_notice = (TextView) findViewById(R.id.error_notice);
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,15 +103,9 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
         addRequest(getRequestManager().getRequest("auth", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    dismissProgress();
-                    JSONObject jsn = new JSONObject(response);
-                    Toast.makeText(CustomerRcvQrcodeActivity.this, jsn.getString("feedback"), Toast.LENGTH_SHORT)
-                            .show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                dismissProgress();
+                error_notice.setText("手机号认证失败，请确认快递ID号是否正确！");
+                error_notice.setVisibility(View.VISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -124,6 +123,12 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
+                try {
+                    JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
+                    Toast.makeText(CustomerRcvQrcodeActivity.this, jsn.getString("feedback"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 CustomerRcvMessageActivity.startActivity(CustomerRcvQrcodeActivity.this, rcvPkgID, rcvName, rcvPhone);
                 finish();
             }

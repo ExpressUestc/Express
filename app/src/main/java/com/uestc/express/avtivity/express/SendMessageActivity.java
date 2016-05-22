@@ -73,7 +73,7 @@ public class SendMessageActivity extends BaseActivity {
                             pkgID="";
                             dismissProgress();
                             tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.douban_green));
-                            tvMessage.setText(Utils.unicode2utf8(response));
+                            tvMessage.setText("发送成功！");
                         }
                     }, new Response.ErrorListener() {
                         @Override

@@ -1,5 +1,7 @@
 package com.uestc.express.network;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,6 +39,7 @@ public class RequestManager {
             url += "=";
             url += entry.getValue();
         }
+        Log.i("express",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, listener, errorListener);
         return stringRequest;
     }
