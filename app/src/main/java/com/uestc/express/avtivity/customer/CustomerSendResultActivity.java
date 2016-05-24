@@ -8,6 +8,7 @@ import com.google.zxing.WriterException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
@@ -36,9 +37,8 @@ public class CustomerSendResultActivity extends BaseActivity {
         JSONObject jsn = new JSONObject();
         try {
             jsn.put("code", getIntent().getStringExtra("code"));
-            jsn.put("rcvName", getIntent().getStringExtra("rcvName"));
             jsn.put("rcvPhone", getIntent().getStringExtra("rcvPhone"));
-            qrcode.setImageBitmap(Utils.createQRCode(jsn.toString(), 200));
+            qrcode.setImageBitmap(Utils.createQRCode(RsaManager.getrsaManager().encrypt(jsn.toString()), 200));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (WriterException e) {

@@ -18,11 +18,11 @@ import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -35,16 +35,14 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
 
     private MenuItem verifyItem;
 
-    private TextView pkgID;
+    private TextView pkgInfo;
     private ImageView scan;
     private TextView tvRcvPhone;
     private EditText etRcvPhone;
     private TextView notice;
     private TextView error_notice;
 
-    private String rcvPkgID;
-    private String rcvName;
-    private String rcvPhone;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +66,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
             case R.id.verify:
                 if (etRcvPhone.getText().length() == 11) {
                     showProgress("正在操作，请稍后...");
-                    if (etRcvPhone.getText().toString().equals(rcvPhone)) {
-                        doPostVerifyMsg();
-                    } else {
-                        doPostFailureResult();
-                    }
+                    doVerify();
                 }
                 break;
         }
@@ -80,7 +74,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     }
 
     private void initView() {
-        pkgID = (TextView) findViewById(R.id.pkg_id);
+        pkgInfo = (TextView) findViewById(R.id.pkg_info);
         scan = (ImageView) findViewById(R.id.scan);
         tvRcvPhone = (TextView) findViewById(R.id.tv_rcv_phone);
         etRcvPhone = (EditText) findViewById(R.id.et_rcv_phone);
@@ -96,16 +90,25 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
 
     }
 
-    private void doPostFailureResult() {
+    private void doVerify() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("flag", "false");
-        map.put("code",rcvPkgID);
-        addRequest(getRequestManager().getRequest("auth", map, new Response.Listener<String>() {
+        map.put("rcvPhone", RsaManager.encrypt(etRcvPhone.getText().toString()));
+        map.put("message", message);
+        addRequest(getRequestManager().postRequest("auth", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                dismissProgress();
-                error_notice.setText("手机号认证失败，请确认快递ID号是否正确！");
-                error_notice.setVisibility(View.VISIBLE);
+                try {
+                    JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
+                    if(jsn.getInt("flag")==1){
+                        doPostVerifyMsg();
+                    } else{
+                        dismissProgress();
+                        error_notice.setText(jsn.getString("response"));
+                        error_notice.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -118,8 +121,8 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
 
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("code", rcvPkgID);
-        addRequest(getRequestManager().getRequest("getVerify", map, new Response.Listener<String>() {
+        map.put("message", message);
+        addRequest(getRequestManager().postRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
@@ -129,7 +132,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                CustomerRcvMessageActivity.startActivity(CustomerRcvQrcodeActivity.this, rcvPkgID, rcvName, rcvPhone);
+                CustomerRcvMessageActivity.startActivity(CustomerRcvQrcodeActivity.this, etRcvPhone.getText().toString(), message);
                 finish();
             }
         }, new Response.ErrorListener() {
@@ -145,16 +148,8 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                String result = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                try {
-                    JSONObject jsn = new JSONObject(result);
-                    rcvPkgID = jsn.getString("code");
-                    rcvName = jsn.getString("rcvName");
-                    rcvPhone = jsn.getString("rcvPhone");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                pkgID.setText(rcvPkgID);
+                message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
+                pkgInfo.setText(message);
                 tvRcvPhone.setVisibility(View.VISIBLE);
                 etRcvPhone.setVisibility(View.VISIBLE);
                 notice.setVisibility(View.VISIBLE);

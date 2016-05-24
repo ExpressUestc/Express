@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.uestc.express">
+<manifest package="com.uestc.express"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:allowBackup="true"
@@ -24,42 +24,42 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="94792cd3300a6403675cd46275fcc0b6" />
+            android:value="94792cd3300a6403675cd46275fcc0b6"/>
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService"/>
 
         <activity android:name=".avtivity.SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".avtivity.MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main"/>
         <activity
             android:name=".avtivity.customer.CustomerHomeActivity"
-            android:label="@string/title_activity_custiomer_home" />
+            android:label="@string/title_activity_custiomer_home"/>
         <activity
             android:name=".avtivity.customer.CustomerQueryActivity"
-            android:label="@string/title_activity_custiomer_query" />
+            android:label="@string/title_activity_custiomer_query"/>
         <activity
             android:name=".avtivity.BaseActivity"
-            android:label="@string/title_activity_base" />
+            android:label="@string/title_activity_base"/>
         <activity
             android:name=".avtivity.customer.CustomerSendActivity"
-            android:label="@string/title_activity_customer_send" />
+            android:label="@string/title_activity_customer_send"/>
         <activity
             android:name=".avtivity.customer.CustomerSendResultActivity"
-            android:label="@string/title_activity_customer_send_result"></activity>
+            android:label="@string/title_activity_customer_send_result"/>
         <activity
             android:name=".avtivity.QRCodeActivity"
             android:label="@string/title_activity_qrcode"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".avtivity.express.ExpressHomeActivity"
-            android:label="@string/title_activity_express_home"></activity>
+            android:label="@string/title_activity_express_home"/>
         <activity
             android:name=".avtivity.express.TrackPositionActivity"
             android:label="@string/title_activity_track_position"/>
@@ -73,6 +73,10 @@
         <activity
             android:name=".avtivity.customer.CustomerRcvMessageActivity"
             android:label="@string/title_activity_customer_rcv_message">
+        </activity>
+        <activity
+            android:name=".avtivity.express.ExpressVerifyActivity"
+            android:label="@string/iamexpress">
         </activity>
     </application>
 

@@ -20,6 +20,7 @@ import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
@@ -35,15 +36,25 @@ public class TrackPositionActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
+    public static void startActivity(Activity activity, String deliverID, String deliverPhone) {
+        Intent intent = new Intent(activity, TrackPositionActivity.class);
+        intent.putExtra("deliverID", deliverID);
+        intent.putExtra("deliverPhone", deliverPhone);
+        activity.startActivity(intent);
+    }
+
     private TextView packageID;
     private TextView position;
     private EditText phone;
     private TextView trackResult;
     private Button track;
 
-    private String pkgID;
+    private String message;
     private boolean hasPosition = false;
     private String address;
+
+    private String deliverPhone;
+    private String deliverID;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -57,6 +68,9 @@ public class TrackPositionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_position);
 
+        deliverID = getIntent().getStringExtra("deliverID");
+        deliverPhone = getIntent().getStringExtra("deliverPhone");
+
         initView();
         startLocation();
     }
@@ -68,21 +82,6 @@ public class TrackPositionActivity extends BaseActivity {
                 if (amapLocation != null) {
                     if (amapLocation.getErrorCode() == 0) {
                         //定位成功回调信息，设置相关消息
-//                        amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-//                        amapLocation.getLatitude();//获取纬度
-//                        amapLocation.getLongitude();//获取经度
-//                        amapLocation.getAccuracy();//获取精度信息
-//                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                        Date date = new Date(amapLocation.getTime());
-//                        df.format(date);//定位时间
-//                        amapLocation.getCountry();//国家信息
-//                        amapLocation.getProvince();//省信息
-//                        amapLocation.getCity();//城市信息
-//                        amapLocation.getDistrict();//城区信息
-//                        amapLocation.getStreet();//街道信息
-//                        amapLocation.getStreetNum();//街道门牌号信息
-//                        amapLocation.getCityCode();//城市编码
-//                        amapLocation.getAdCode();//地区编码
                         address = amapLocation.getAddress();
                         position.setText(amapLocation.getAddress());
                         hasPosition = true;
@@ -130,6 +129,8 @@ public class TrackPositionActivity extends BaseActivity {
         trackResult = (TextView) findViewById(R.id.track_result);
         track = (Button) findViewById(R.id.track);
 
+        phone.setText(deliverPhone);
+
         track.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,14 +146,8 @@ public class TrackPositionActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                String result = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                try {
-                    JSONObject jsn=new JSONObject(result);
-                    pkgID=jsn.getString("code");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                packageID.setText(pkgID);
+                message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
+                packageID.setText(message);
                 trackResult.setText("正在操作，请稍后...");
                 showProgress("正在操作，请稍后...");
                 doTrack();
@@ -162,10 +157,11 @@ public class TrackPositionActivity extends BaseActivity {
 
     private void doTrack() {
         Map<String, String> map = new HashMap<>();
-        map.put("code", pkgID);
-        map.put("pos", address);
-        map.put("deliverPhone", phone.getText().toString());
-        addRequest(getRequestManager().getRequest("sending", map, new Response.Listener<String>() {
+        map.put("message", message);
+        map.put("pos", RsaManager.encrypt(address));
+        map.put("deliverPhone", RsaManager.encrypt(phone.getText().toString()));
+        map.put("deliverID", RsaManager.encrypt(deliverID));
+        addRequest(getRequestManager().postRequest("sending", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
