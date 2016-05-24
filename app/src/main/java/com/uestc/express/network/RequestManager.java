@@ -47,12 +47,16 @@ public class RequestManager {
     public StringRequest postRequest(String apiStr, final Map<String, String> params, Response.Listener<String> listener,
                                  Response.ErrorListener errorListener) {
         String url = Constants.URL + apiStr;
+        if (!apiStr.equals("")) {
+            url += "/";
+        }
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 return params;
             }
         };
+
         return stringRequest;
     }
 

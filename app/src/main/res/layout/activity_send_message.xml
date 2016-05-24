@@ -19,24 +19,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"/>
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:hint="请输入您的手机号"
-        android:textSize="16sp"
-        android:inputType="number"
-        android:maxLength="11"
-        android:textColor="@color/dark_gray"/>
-
     <TextView
-        android:id="@+id/textViewpackageID"
+        android:id="@+id/textViewpackageMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLength="50"
         android:textColor="@color/douban_red"
         android:textSize="20sp"/>
 

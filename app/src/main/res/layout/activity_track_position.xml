@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="快件ID"
+        android:text="快递单信息"
         android:textColor="@color/douban_gray"
         android:textSize="20sp"/>
 
@@ -37,9 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:maxLength="50"
         android:text="请点击“扫描快递单”按钮开始记录"
         android:textColor="@color/douban_red"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:ellipsize="end"/>
 
     <TextView
         android:layout_width="wrap_content"

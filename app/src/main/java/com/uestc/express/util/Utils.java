@@ -2,6 +2,7 @@ package com.uestc.express.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Environment;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -9,10 +10,14 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -72,6 +77,19 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static File saveErrorLog(byte[] data){
+        String html=new String(data);
+        File f=new File(Environment.getExternalStorageDirectory()+"/log.txt");
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f, false));
+            bos.write(html.getBytes(Charset.forName("UTF-8")));
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
     }
 
 }

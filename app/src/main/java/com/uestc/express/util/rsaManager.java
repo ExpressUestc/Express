@@ -1,16 +1,11 @@
 package com.uestc.express.util;
 
 
-import android.view.View;
+import com.uestc.express.Constants;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
@@ -18,22 +13,19 @@ import javax.crypto.Cipher;
 /**
  * Created by lucifer on 2016/5/18.
  */
-public class rsaManager {
-    private String pubkey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9aXfnIwLe9FmTcjidZ7159QZC+pkXGMGbUTOnG/i4WV3cTI4OKGcAbHUCQgbDpQIYx0UyLIgrZDScdc9mgAgbul2tuW9ateOiIk5J0lUK2qN1VWH7IHaDawnyCjLForvpbSqcqPVRZZCM0LB2Is814YyoF+36s/5XRg9Xe1nHVwIDAQAB";
+public class RsaManager {
     private String rsaCode;
-    private static rsaManager Instance;
+    private static RsaManager Instance;
 
-    public static rsaManager getrsaManager() {
+    public static RsaManager getrsaManager() {
         if (Instance == null) {
-            Instance = new rsaManager();
+            Instance = new RsaManager();
         }
         return Instance;
     }
 
-    public String encrypt(String str) {
-        rsaCode = encryptByPublic(str, pubkey);
-        System.out.println("加密串:" + rsaCode);
-        return rsaCode;
+    public static String encrypt(String str) {
+        return encryptByPublic(str, Constants.RSA_PUBLIC_KEY);
     }
 
 

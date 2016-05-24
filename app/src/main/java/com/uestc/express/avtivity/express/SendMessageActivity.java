@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +16,7 @@ import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
-import com.uestc.express.avtivity.customer.CustomerQueryActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
@@ -32,25 +31,37 @@ public class SendMessageActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
+    public static void startActivity(Activity activity, String deliverID, String deliverPhone) {
+        Intent intent = new Intent(activity, SendMessageActivity.class);
+        intent.putExtra("deliverPhone", deliverPhone);
+        intent.putExtra("deliverID", deliverID);
+        activity.startActivity(intent);
+    }
+
     private ImageView btnGetCode;
-    private EditText phone;
     private Button btnSendCode;
-    private TextView tvPackageID, tvMessage;
-    private String pkgID;
+    private TextView tvPackageMsg, tvMessage;
+    private String message;
     private Boolean hasID = false;
+
+    private String deliverPhone;
+    private String deliverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
+
+        deliverPhone = getIntent().getStringExtra("deliverPhone");
+        deliverID = getIntent().getStringExtra("deliverID");
+
         init();
     }
 
     private void init() {
         btnGetCode = (ImageView) findViewById(R.id.buttonGetCode);
-        phone = (EditText) findViewById(R.id.phone);
         btnSendCode = (Button) findViewById(R.id.buttonSendCode);
-        tvPackageID = (TextView) findViewById(R.id.textViewpackageID);
+        tvPackageMsg = (TextView) findViewById(R.id.textViewpackageMsg);
         tvMessage = (TextView) findViewById(R.id.textViewMessage);
         btnGetCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +75,24 @@ public class SendMessageActivity extends BaseActivity {
                 if (hasID) {
                     showProgress("正在提交，请稍后");
                     Map<String, String> map = new HashMap<>();
-                    map.put("code", pkgID);
-                    map.put("deliverPhone", phone.getText().toString());
-                    addRequest(getRequestManager().getRequest("distribute", map, new Response.Listener<String>() {
+                    map.put("message", message);
+                    map.put("deliverPhone", RsaManager.encrypt(deliverPhone));
+                    map.put("deliverID", RsaManager.encrypt(deliverID));
+
+                    addRequest(getRequestManager().postRequest("distribute", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            hasID=false;
-                            pkgID="";
-                            dismissProgress();
-                            tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.douban_green));
-                            tvMessage.setText("发送成功！");
+                            try {
+                                JSONObject jsn = new JSONObject(Utils.unicode2utf8(response));
+                                hasID = false;
+                                message = "";
+                                dismissProgress();
+                                tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color
+                                        .douban_green));
+                                tvMessage.setText(jsn.getString("feedback"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -95,17 +114,11 @@ public class SendMessageActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                String result = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                try {
-                    JSONObject jsn=new JSONObject(result);
-                    pkgID = jsn.getString("code");
-                    tvPackageID.setText(jsn.getString("code"));
-                    tvMessage.setText("尚未发送信息");
-                    tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.dark_gray));
-                    hasID = true;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
+                tvPackageMsg.setText("快递单信息："+message);
+                tvMessage.setText("尚未发送信息");
+                tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color.dark_gray));
+                hasID = true;
             }
         }
     }

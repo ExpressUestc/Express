@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
@@ -25,6 +26,13 @@ import java.util.HashMap;
 
 public class CustomerRcvMessageActivity extends BaseActivity {
 
+    public static void startActivity(Activity activity, String rcvPhone, String message) {
+        Intent intent = new Intent(activity, CustomerRcvMessageActivity.class);
+        intent.putExtra("rcvPhone", rcvPhone);
+        intent.putExtra("message", message);
+        activity.startActivity(intent);
+    }
+
     public static void startActivity(Activity activity, String pkgID, String rcvName, String rcvPhone) {
         Intent intent = new Intent(activity, CustomerRcvMessageActivity.class);
         intent.putExtra("pkgID", pkgID);
@@ -33,39 +41,34 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
-    private TextView tv_pkgID;
-    private TextView tv_rcvName;
+    private TextView tv_pkgInfo;
     private TextView tv_rcvPhone;
     private EditText et_verifyCode;
     private Button btn_getCode;
     private Button btn_rcv;
 
-    private String rcvPkgID;
-    private String rcvName;
     private String rcvPhone;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_rcv_message);
 
-        rcvPkgID = getIntent().getStringExtra("pkgID");
-        rcvName = getIntent().getStringExtra("rcvName");
         rcvPhone = getIntent().getStringExtra("rcvPhone");
+        message = getIntent().getStringExtra("message");
 
         initView();
     }
 
     private void initView() {
-        tv_pkgID = (TextView) findViewById(R.id.pkg_id);
-        tv_rcvName = (TextView) findViewById(R.id.rcv_name);
+        tv_pkgInfo = (TextView) findViewById(R.id.pkg_info);
         tv_rcvPhone = (TextView) findViewById(R.id.rcv_phone);
         et_verifyCode = (EditText) findViewById(R.id.verify_code);
         btn_getCode = (Button) findViewById(R.id.get_code);
         btn_rcv = (Button) findViewById(R.id.btn_rcv);
 
-        tv_pkgID.setText(rcvPkgID);
-        tv_rcvName.setText(rcvName);
+        tv_pkgInfo.setText(message);
         tv_rcvPhone.setText(rcvPhone);
         btn_getCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,17 +80,8 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         btn_rcv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showProgress("正在操作，请稍后...");
-                AlertDialog dialog = new AlertDialog.Builder(CustomerRcvMessageActivity.this,R.style.DialogStyle).setMessage("签收成功！")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                finish();
-                            }
-                        }).create();
-                dialog.show();
-//                doReceive();
+                showProgress("正在操作，请稍后...");
+                doReceive();
             }
         });
 
@@ -129,10 +123,16 @@ public class CustomerRcvMessageActivity extends BaseActivity {
 
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("code", rcvPkgID);
-        addRequest(getRequestManager().getRequest("getVerify", map, new Response.Listener<String>() {
+        map.put("message", message);
+        addRequest(getRequestManager().postRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
+                    Toast.makeText(CustomerRcvMessageActivity.this,jsn.getString("feedback"),Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 setGetCodeButton();
             }
         }, new Response.ErrorListener() {
@@ -146,9 +146,9 @@ public class CustomerRcvMessageActivity extends BaseActivity {
 
     private void doReceive() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("code", rcvPkgID);
-        map.put("verify", et_verifyCode.getText().toString());
-        addRequest(getRequestManager().getRequest("authVerify", map, new Response.Listener<String>() {
+        map.put("message", message);
+        map.put("verify", RsaManager.encrypt(et_verifyCode.getText().toString()));
+        addRequest(getRequestManager().postRequest("authVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
