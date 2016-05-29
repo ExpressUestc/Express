@@ -1,6 +1,5 @@
 package com.uestc.express.avtivity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionBar = getActionBar();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         initView();

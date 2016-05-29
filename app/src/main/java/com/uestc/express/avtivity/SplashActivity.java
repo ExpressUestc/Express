@@ -1,9 +1,7 @@
 package com.uestc.express.avtivity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
 
 import com.uestc.express.R;
 
@@ -14,7 +12,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        ActionBar actionBar = getActionBar();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         new Handler().postDelayed(new Runnable() {

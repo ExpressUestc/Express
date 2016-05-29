@@ -1,6 +1,7 @@
 package com.uestc.express.avtivity.express;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -51,6 +52,8 @@ public class ExpressVerifyActivity extends BaseActivity {
                 if (deliverPhone.getText().length() == 11 && !deliverId.getText().toString().equals("")) {
                     showProgress("正在操作，请稍后...");
                     doVerify();
+                } else{
+                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -78,7 +81,12 @@ public class ExpressVerifyActivity extends BaseActivity {
                                 deliverPhone.getText().toString());
                         finish();
                     } else{
-                        Toast.makeText(ExpressVerifyActivity.this,"验证失败",Toast.LENGTH_SHORT).show();
+                        showDialog("验证失败", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -88,7 +96,12 @@ public class ExpressVerifyActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                Toast.makeText(ExpressVerifyActivity.this,"验证失败",Toast.LENGTH_SHORT).show();
+                showDialog("验证失败", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
             }
         }));
 

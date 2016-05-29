@@ -119,6 +119,29 @@
                 android:textColor="@color/black"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_card"/>
+
+            <EditText
+                android:id="@+id/editTextMyCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:hint="身份证"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
