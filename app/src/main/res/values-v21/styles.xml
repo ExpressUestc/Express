@@ -4,13 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorButtonNormal">@color/douban_blue_80_percent</item>
+        <item name="android:colorButtonNormal">@color/douban_blue_80_percent</item>
     </style>
-
-    <style name="DialogStyle" parent="AlertDialog.AppCompat.Light">
+    
+    <style name="DialogStyle" parent="android:Theme.Material.Light.Dialog">
         <item name="android:textColorPrimary">@color/dark_gray</item>
     </style>
 

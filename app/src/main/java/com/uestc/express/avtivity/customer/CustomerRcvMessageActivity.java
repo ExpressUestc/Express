@@ -159,15 +159,14 @@ public class CustomerRcvMessageActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                AlertDialog dialog = new AlertDialog.Builder(CustomerRcvMessageActivity.this,R.style.DialogStyle).setMessage(feedback)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                showDialog(feedback, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         finish();
                     }
-                }).create();
-                dialog.show();
+                });
             }
         }, new Response.ErrorListener() {
             @Override
