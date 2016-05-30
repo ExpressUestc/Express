@@ -2,13 +2,21 @@ package com.uestc.express.avtivity.express;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.zxing.WriterException;
+import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.avtivity.QRCodeActivity;
+import com.uestc.express.util.Utils;
 
 public class ExpressHomeActivity extends BaseActivity {
 
@@ -49,7 +57,7 @@ public class ExpressHomeActivity extends BaseActivity {
         print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                QRCodeActivity.startActivity(ExpressHomeActivity.this);
             }
         });
 
@@ -67,5 +75,16 @@ public class ExpressHomeActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                String message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
+                ExpressPrintActivity.startActivity(this,message);
+            }
+        }
     }
 }

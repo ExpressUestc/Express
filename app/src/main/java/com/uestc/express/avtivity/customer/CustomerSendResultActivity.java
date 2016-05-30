@@ -38,7 +38,7 @@ public class CustomerSendResultActivity extends BaseActivity {
         try {
             jsn.put("code", getIntent().getStringExtra("code"));
             jsn.put("rcvPhone", getIntent().getStringExtra("rcvPhone"));
-            qrcode.setImageBitmap(Utils.createQRCode(RsaManager.getrsaManager().encrypt(jsn.toString()), 200));
+            qrcode.setImageBitmap(Utils.createQRCode(RsaManager.getrsaManager().encrypt(jsn.toString()), Utils.QRCODE_SIZE));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (WriterException e) {
