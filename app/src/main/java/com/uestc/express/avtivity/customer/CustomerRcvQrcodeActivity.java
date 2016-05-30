@@ -114,7 +114,8 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                Toast.makeText(CustomerRcvQrcodeActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerRcvQrcodeActivity.this, "验证失败", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
             }
         }));
     }
@@ -139,7 +140,8 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                Toast.makeText(CustomerRcvQrcodeActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerRcvQrcodeActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
             }
         }));
     }

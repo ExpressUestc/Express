@@ -99,7 +99,8 @@ public class SendMessageActivity extends BaseActivity {
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
                             tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.douban_red));
-                            tvMessage.setText(error.toString());
+                            tvMessage.setText("发送失败");
+                            error.printStackTrace();
                         }
                     }));
                 } else {

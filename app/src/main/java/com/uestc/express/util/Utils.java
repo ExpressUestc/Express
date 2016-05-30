@@ -1,6 +1,7 @@
 package com.uestc.express.util;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Environment;
 
@@ -14,6 +15,7 @@ import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +29,9 @@ import java.util.Hashtable;
  * Created by Tobb_Huang on 16/4/12.
  */
 public class Utils {
+
+    public static int QRCODE_SIZE = 200;
+    public static String CACHE_PATH = Environment.getExternalStorageDirectory() + "/uestc_express/";
 
     public static PrivateKey getPrivateKey(String filename) throws Exception {
         File f = new File(filename);
@@ -61,12 +66,16 @@ public class Utils {
             for (int x = 0; x < width; x++) {
                 if (matrix.get(x, y)) {
                     pixels[y * width + x] = Color.BLACK;
+                }else{
+                    pixels[y * width + x] = Color.WHITE;
                 }
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height,
                 Bitmap.Config.ARGB_8888);
+
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+
         return bitmap;
     }
 
@@ -90,6 +99,31 @@ public class Utils {
             e.printStackTrace();
         }
         return f;
+    }
+
+    public static boolean saveBitmap(Bitmap bm, String filename) {
+        try {
+            File dir=new File(CACHE_PATH);
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+
+            File f = new File(CACHE_PATH + filename + ".png");
+            if(f.exists()){
+                f.delete();
+            }
+
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

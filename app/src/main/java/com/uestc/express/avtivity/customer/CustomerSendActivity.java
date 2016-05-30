@@ -110,8 +110,8 @@ public class CustomerSendActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
-                            Toast.makeText(CustomerSendActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                            Log.i("error", error.toString());
+                            Toast.makeText(CustomerSendActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                            error.printStackTrace();
                         }
                     }));
                 }

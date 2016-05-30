@@ -102,6 +102,7 @@ public class ExpressVerifyActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 });
+                error.printStackTrace();
             }
         }));
 

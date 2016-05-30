@@ -76,7 +76,8 @@ public class CustomerQueryActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
-                            responseText.setText(error.toString());
+                            responseText.setText("查询失败");
+                            error.printStackTrace();
                         }
                     }));
                 }

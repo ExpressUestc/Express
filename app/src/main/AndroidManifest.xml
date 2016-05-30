@@ -78,6 +78,10 @@
             android:name=".avtivity.express.ExpressVerifyActivity"
             android:label="@string/iamexpress">
         </activity>
+        <activity
+            android:name=".avtivity.express.ExpressPrintActivity"
+            android:label="@string/title_activity_express_print">
+        </activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@
     <string name="title_activity_send_message">发送短信</string>
     <string name="title_activity_customer_rcv_qrcode">签收验证</string>
     <string name="title_activity_customer_rcv_message">完成签收</string>
+    <string name="title_activity_express_print">保存二维码</string>
     <string name="welcome">欢迎使用</string>
 
     <string name="iamexpress">我是快递员</string>

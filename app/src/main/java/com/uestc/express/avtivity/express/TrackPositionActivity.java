@@ -176,7 +176,8 @@ public class TrackPositionActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                trackResult.setText(error.getMessage());
+                trackResult.setText("操作失败");
+                error.printStackTrace();
             }
         }));
     }

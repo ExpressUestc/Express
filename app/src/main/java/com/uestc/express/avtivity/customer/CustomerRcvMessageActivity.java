@@ -138,7 +138,8 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CustomerRcvMessageActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerRcvMessageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
                 btn_getCode.setEnabled(true);
             }
         }));
@@ -172,7 +173,8 @@ public class CustomerRcvMessageActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                Toast.makeText(CustomerRcvMessageActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerRcvMessageActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
             }
         }));
     }
