@@ -1,8 +1,10 @@
 package com.uestc.express.avtivity.customer;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -38,7 +40,18 @@ public class CustomerSendResultActivity extends BaseActivity {
         try {
             jsn.put("code", getIntent().getStringExtra("code"));
             jsn.put("rcvPhone", getIntent().getStringExtra("rcvPhone"));
-            qrcode.setImageBitmap(Utils.createQRCode(RsaManager.getrsaManager().encrypt(jsn.toString()), Utils.QRCODE_SIZE));
+            String msg = RsaManager.getrsaManager().encrypt(jsn.toString());
+            Bitmap bm = Utils.createQRCode(msg, Utils.QRCODE_SIZE);
+            qrcode.setImageBitmap(bm);
+
+            // 保存二维码图片
+            String path = msg.substring(0, 10).replaceAll("/", "");
+            if (Utils.saveBitmap(bm, path)) {
+                Toast.makeText(this, "已成功保存到" + Utils.CACHE_PATH + path, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (WriterException e) {

@@ -51,8 +51,10 @@ public class ExpressPrintActivity extends BaseActivity {
                 qrcode.setDrawingCacheEnabled(true);
                 Bitmap bm = qrcode.getDrawingCache();
 
-                if (Utils.saveBitmap(bm, getIntent().getStringExtra("message").substring(0, 10))) {
-                    Toast.makeText(ExpressPrintActivity.this, "已成功保存到"+Utils.CACHE_PATH+getIntent().getStringExtra("message").substring(0, 10), Toast.LENGTH_SHORT).show();
+                String path = getIntent().getStringExtra("message").substring(0, 10).replaceAll("/", "");
+                if (Utils.saveBitmap(bm, path)) {
+                    Toast.makeText(ExpressPrintActivity.this, "已成功保存到" + Utils.CACHE_PATH + path, Toast.LENGTH_SHORT)
+                            .show();
                 } else {
                     Toast.makeText(ExpressPrintActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
                 }
