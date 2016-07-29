@@ -90,7 +90,7 @@ public class Utils {
 
     public static File saveErrorLog(byte[] data){
         String html=new String(data);
-        File f=new File(Environment.getExternalStorageDirectory()+"/log.txt");
+        File f=new File(Environment.getExternalStorageDirectory()+"/log.html");
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f, false));
             bos.write(html.getBytes(Charset.forName("UTF-8")));

@@ -87,14 +87,22 @@
                 android:src="@drawable/address"/>
 
             <EditText
-                android:id="@+id/editTextMyAddress"
+                android:id="@+id/editTextMyCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="寄件人地址"
+                android:hint="寄件人城市"
                 android:maxLength="50"
                 android:textColor="@color/black"/>
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextMyAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:hint="详细地址"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,14 +223,22 @@
                 android:src="@drawable/address"/>
 
             <EditText
-                android:id="@+id/editTextRcvAddress"
+                android:id="@+id/editTextRcvCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="收件人地址"
+                android:hint="收件人城市"
                 android:maxLength="50"
                 android:textColor="@color/black"/>
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextRcvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:hint="详细地址"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"

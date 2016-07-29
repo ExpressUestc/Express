@@ -15,6 +15,8 @@
     <string name="title_activity_customer_rcv_qrcode">签收验证</string>
     <string name="title_activity_customer_rcv_message">完成签收</string>
     <string name="title_activity_express_print">保存二维码</string>
+    <string name="title_activity_nfcreader">读取NFC数据</string>
+    <string name="title_activity_nfcwriter">写入NFC数据</string>
     <string name="welcome">欢迎使用</string>
 
     <string name="iamexpress">我是快递员</string>
@@ -31,5 +33,14 @@
     <string name="print_express_paper">打印快递单</string>
     <string name="track_position">运送位置记录</string>
     <string name="send_package_notice">发送取快递通知</string>
+    <string name="save_to_storage">保存到本地</string>
+
+    <string name="qrcode">二维码</string>
+    <string name="nfc">NFC</string>
+    <string name="nfc_notice">请将NFC标签靠近手机背部NFC感应区</string>
+
+    <!--error-->
+    <string name="error_nfc_writer">NFC数据有误</string>
+    <string name="error_nfc_empty">NFC数据为空</string>
 
 </resources>

@@ -8,6 +8,7 @@ public class Constants {
     public static String URL="http://101.201.79.95/express/";
 
     public static String KEY_QRCODE_TEXT = "qrcode_text";
+    public static String KEY_NFC_READER = "nfc_reader";
 
     public static String RSA_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxOOJ2P0eiS0aXjQ947zw" +
             "/2HUVwj4cHt4+AdwlHEmKGhTyBv4+klcoIRHLxjLvkcS0Gx664JJyYvw1AK8wVU2" +

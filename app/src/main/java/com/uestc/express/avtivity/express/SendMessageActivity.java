@@ -1,6 +1,8 @@
 package com.uestc.express.avtivity.express;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.avtivity.NFCReaderActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
 import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
@@ -66,7 +69,21 @@ public class SendMessageActivity extends BaseActivity {
         btnGetCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QRCodeActivity.startActivity(SendMessageActivity.this);
+                AlertDialog.Builder builder=new AlertDialog.Builder(SendMessageActivity.this);
+                builder.setItems(R.array.scan_item, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                QRCodeActivity.startActivity(SendMessageActivity.this);
+                                break;
+                            case 1:
+                                NFCReaderActivity.startActivity(SendMessageActivity.this);
+                                break;
+                        }
+                    }
+                });
+                builder.show();
             }
         });
         btnSendCode.setOnClickListener(new View.OnClickListener() {
@@ -113,14 +130,16 @@ public class SendMessageActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
                 message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                tvPackageMsg.setText("快递单信息："+message);
-                tvMessage.setText("尚未发送信息");
-                tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color.dark_gray));
-                hasID = true;
+            } else if (requestCode == NFCReaderActivity.NFCREADER_REQUEST_CODE) {
+                message = data.getStringExtra(Constants.KEY_NFC_READER);
             }
+            tvPackageMsg.setText("快递单信息：" + message);
+            tvMessage.setText("尚未发送信息");
+            tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color.dark_gray));
+            hasID = true;
         }
     }
 }
