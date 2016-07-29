@@ -201,7 +201,6 @@ public class TrackPositionActivity extends BaseActivity {
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
                 trackResult.setText("操作失败 "+error.toString());
-                Utils.saveErrorLog(error.networkResponse.data);
             }
         }));
     }
