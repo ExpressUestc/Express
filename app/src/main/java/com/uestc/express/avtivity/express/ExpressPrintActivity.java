@@ -9,10 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.zxing.WriterException;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.avtivity.NFCWriterActivity;
 import com.uestc.express.util.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class ExpressPrintActivity extends BaseActivity {
 
@@ -24,6 +32,7 @@ public class ExpressPrintActivity extends BaseActivity {
 
     ImageView qrcode;
     Button save;
+    Button nfc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class ExpressPrintActivity extends BaseActivity {
     private void initView() {
         qrcode = (ImageView) findViewById(R.id.qrcode);
         save = (Button) findViewById(R.id.save);
+        nfc = (Button) findViewById(R.id.nfc);
 
         try {
             qrcode.setImageBitmap(Utils.createQRCode(getIntent().getStringExtra("message"), Utils.QRCODE_SIZE));
@@ -44,10 +54,39 @@ public class ExpressPrintActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+        showProgress("正在验证，请稍后...");
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("message", getIntent().getStringExtra("message"));
+        System.out.println(getIntent().getStringExtra("message"));
+        addRequest(getRequestManager().postRequest("authPost", map, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                dismissProgress();
+                try {
+                    JSONObject jsn = new JSONObject(response);
+                    if (jsn.has("flag") && jsn.getInt("flag") == 1) {
+                        Toast.makeText(ExpressPrintActivity.this, "验证成功", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(ExpressPrintActivity.this, "验证失败，请检查快递单合法性", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dismissProgress();
+                Toast.makeText(ExpressPrintActivity.this, "验证失败 " + error.toString(), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }));
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 qrcode.setDrawingCacheEnabled(true);
                 Bitmap bm = qrcode.getDrawingCache();
 
@@ -58,6 +97,13 @@ public class ExpressPrintActivity extends BaseActivity {
                 } else {
                     Toast.makeText(ExpressPrintActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        nfc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NFCWriterActivity.startActivity(ExpressPrintActivity.this, getIntent().getStringExtra("message"));
             }
         });
 

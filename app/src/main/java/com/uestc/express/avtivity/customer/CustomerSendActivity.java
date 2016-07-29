@@ -16,6 +16,7 @@ import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.util.Base64;
 import com.uestc.express.util.RsaManager;
+import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,8 +27,8 @@ import java.util.Map;
 
 public class CustomerSendActivity extends BaseActivity {
     private Button btnSend;
-    private EditText etMyName, etMyPhone, etMyAddress, etMyPostalCode, etExtraPrice, etRcvName, etRcvPhone,
-            etRcvAddress, etRcvPostalCode, etGoods, etExpressCompany, etRemarks;
+    private EditText etMyName, etMyPhone,etMyCity, etMyAddress, etMyPostalCode, etExtraPrice, etRcvName, etRcvPhone,
+            etRcvCity, etRcvAddress, etRcvPostalCode, etGoods, etExpressCompany, etRemarks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,13 @@ public class CustomerSendActivity extends BaseActivity {
     private void initView() {
         etMyName = (EditText) findViewById(R.id.editTextMyName);
         etMyPhone = (EditText) findViewById(R.id.editTextMyPhone);
+        etMyCity = (EditText) findViewById(R.id.editTextMyCity);
         etMyAddress = (EditText) findViewById(R.id.editTextMyAddress);
         etMyPostalCode = (EditText) findViewById(R.id.editTextMyPostalCode);
         etExtraPrice = (EditText) findViewById(R.id.editTextExtraPrice);
         etRcvName = (EditText) findViewById(R.id.editTextRcvName);
         etRcvPhone = (EditText) findViewById(R.id.editTextRcvPhone);
+        etRcvCity = (EditText) findViewById(R.id.editTextRcvCity);
         etRcvAddress = (EditText) findViewById(R.id.editTextRcvAddress);
         etRcvPostalCode = (EditText) findViewById(R.id.editTextRcvPostalCode);
         etGoods = (EditText) findViewById(R.id.editTextGoods);
@@ -79,12 +82,16 @@ public class CustomerSendActivity extends BaseActivity {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("myName", RsaManager.encrypt(etMyName.getText().toString()));
                     map.put("myPhone", RsaManager.encrypt(etMyPhone.getText().toString()));
-                    map.put("myAddress", RsaManager.encrypt(etMyAddress.getText().toString()));
+                    map.put("sendCity", RsaManager.encrypt(etMyCity.getText().toString()));
+                    map.put("myAddress", RsaManager.encrypt(etMyCity.getText().toString() + etMyAddress.getText()
+                            .toString()));
                     map.put("myPostcode", RsaManager.encrypt(etMyPostalCode.getText().toString()));
                     map.put("extraPrice", RsaManager.encrypt(etExtraPrice.getText().toString()));
                     map.put("rcvName", RsaManager.encrypt(etRcvName.getText().toString()));
                     map.put("rcvPhone", RsaManager.encrypt(etRcvPhone.getText().toString()));
-                    map.put("rcvAddress", RsaManager.encrypt(etRcvAddress.getText().toString()));
+                    map.put("rcvCity", RsaManager.encrypt(etRcvCity.getText().toString()));
+                    map.put("rcvAddress", RsaManager.encrypt(etRcvCity.getText().toString() + etRcvAddress.getText()
+                            .toString()));
                     map.put("rcvPostcode", RsaManager.encrypt(etRcvPostalCode.getText().toString()));
                     map.put("goods", RsaManager.encrypt(etGoods.getText().toString()));
                     map.put("expressCompany", RsaManager.encrypt(etExpressCompany.getText().toString()));
@@ -92,7 +99,6 @@ public class CustomerSendActivity extends BaseActivity {
                     addRequest(getRequestManager().postRequest("", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.i("send", response);
                             dismissProgress();
                             try {
                                 JSONObject jsn = new JSONObject(response);

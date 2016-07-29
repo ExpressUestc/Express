@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="scan_item">
+        <item>二维码</item>
+        <item>NFC</item>
+    </array>
+</resources>

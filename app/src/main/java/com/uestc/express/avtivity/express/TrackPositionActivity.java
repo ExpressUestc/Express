@@ -1,6 +1,8 @@
 package com.uestc.express.avtivity.express;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
+import com.uestc.express.avtivity.NFCReaderActivity;
 import com.uestc.express.avtivity.QRCodeActivity;
 import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
@@ -52,6 +55,7 @@ public class TrackPositionActivity extends BaseActivity {
     private String message;
     private boolean hasPosition = false;
     private String address;
+    private String city;
 
     private String deliverPhone;
     private String deliverID;
@@ -84,6 +88,8 @@ public class TrackPositionActivity extends BaseActivity {
                         //定位成功回调信息，设置相关消息
                         address = amapLocation.getAddress();
                         position.setText(amapLocation.getAddress());
+                        city = amapLocation.getCity();
+                        city = city.replace("市", "");
                         hasPosition = true;
                     } else {
                         //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -134,24 +140,41 @@ public class TrackPositionActivity extends BaseActivity {
         track.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hasPosition)
-                    QRCodeActivity.startActivity(TrackPositionActivity.this);
-                else
+                if (hasPosition) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(TrackPositionActivity.this);
+                    builder.setItems(R.array.scan_item, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case 0:
+                                    QRCodeActivity.startActivity(TrackPositionActivity.this);
+                                    break;
+                                case 1:
+                                    NFCReaderActivity.startActivity(TrackPositionActivity.this);
+                                    break;
+                            }
+                        }
+                    });
+                    builder.show();
+                } else {
                     Toast.makeText(TrackPositionActivity.this, "请先等待完成定位", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == QRCodeActivity.QRCODE_REQUEST_CODE) {
                 message = data.getStringExtra(Constants.KEY_QRCODE_TEXT);
-                packageID.setText(message);
-                trackResult.setText("正在操作，请稍后...");
-                showProgress("正在操作，请稍后...");
-                doTrack();
+            } else if (requestCode == NFCReaderActivity.NFCREADER_REQUEST_CODE) {
+                message = data.getStringExtra(Constants.KEY_NFC_READER);
             }
+            packageID.setText(message);
+            trackResult.setText("正在操作，请稍后...");
+            showProgress("正在操作，请稍后...");
+            doTrack();
         }
     }
 
@@ -159,6 +182,7 @@ public class TrackPositionActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("message", message);
         map.put("pos", RsaManager.encrypt(address));
+        map.put("city", RsaManager.encrypt(city));
         map.put("deliverPhone", RsaManager.encrypt(phone.getText().toString()));
         map.put("deliverID", RsaManager.encrypt(deliverID));
         addRequest(getRequestManager().postRequest("sending", map, new Response.Listener<String>() {
@@ -176,8 +200,7 @@ public class TrackPositionActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                trackResult.setText("操作失败");
-                error.printStackTrace();
+                trackResult.setText("操作失败 "+error.toString());
             }
         }));
     }
