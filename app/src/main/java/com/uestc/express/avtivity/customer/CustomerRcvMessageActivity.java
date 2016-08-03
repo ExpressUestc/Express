@@ -50,6 +50,8 @@ public class CustomerRcvMessageActivity extends BaseActivity {
     private String rcvPhone;
     private String message;
 
+    private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,12 +126,15 @@ public class CustomerRcvMessageActivity extends BaseActivity {
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", message);
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
-                    Toast.makeText(CustomerRcvMessageActivity.this,jsn.getString("feedback"),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerRcvMessageActivity.this, Utils.aesDecrypt(jsn.getString("feedback"), key),
+                            Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -149,14 +154,16 @@ public class CustomerRcvMessageActivity extends BaseActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", message);
         map.put("verify", RsaManager.encrypt(et_verifyCode.getText().toString()));
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("authVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
                 String feedback = "";
                 try {
-                    JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
-                    feedback=jsn.getString("feedback");
+                    JSONObject jsn = new JSONObject(Utils.unicode2utf8(response));
+                    feedback = Utils.aesDecrypt(jsn.getString("feedback"), key);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -28,6 +28,8 @@ public class CustomerQueryActivity extends BaseActivity {
     private EditText etName, etPhone, etCode;
     private TextView responseText;
 
+    private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,8 @@ public class CustomerQueryActivity extends BaseActivity {
                     map.put("rcvName", RsaManager.encrypt(etName.getText().toString()));
                     map.put("rcvPhone", RsaManager.encrypt(etPhone.getText().toString()));
                     map.put("code", RsaManager.encrypt(etCode.getText().toString()));
+                    key = Utils.getRandomString(16);
+                    map.put("key", RsaManager.encrypt(key));
 
                     addRequest(getRequestManager().postRequest("find", map, new Response.Listener<String>() {
                         @Override
@@ -64,9 +68,9 @@ public class CustomerQueryActivity extends BaseActivity {
                             try {
                                 JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
                                 if (jsn.has("pos")) {
-                                    responseText.setText("最新位置：" + jsn.getString("pos"));
+                                    responseText.setText("最新位置：" + Utils.aesDecrypt(jsn.getString("pos"), key));
                                 } else {
-                                    responseText.setText(jsn.getString("feedback"));
+                                    responseText.setText(Utils.aesDecrypt(jsn.getString("feedback"), key));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -77,7 +81,6 @@ public class CustomerQueryActivity extends BaseActivity {
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
                             responseText.setText("查询失败");
-                            error.printStackTrace();
                         }
                     }));
                 }

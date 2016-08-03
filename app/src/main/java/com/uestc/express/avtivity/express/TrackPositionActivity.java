@@ -60,6 +60,8 @@ public class TrackPositionActivity extends BaseActivity {
     private String deliverPhone;
     private String deliverID;
 
+    private String key;
+
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
@@ -185,13 +187,15 @@ public class TrackPositionActivity extends BaseActivity {
         map.put("city", RsaManager.encrypt(city));
         map.put("deliverPhone", RsaManager.encrypt(phone.getText().toString()));
         map.put("deliverID", RsaManager.encrypt(deliverID));
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("sending", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
                 try {
                     JSONObject jsn = new JSONObject(Utils.unicode2utf8(response));
-                    trackResult.setText(jsn.getString("feedback"));
+                    trackResult.setText(Utils.aesDecrypt(jsn.getString("feedback"), key));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -200,7 +204,7 @@ public class TrackPositionActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
-                trackResult.setText("操作失败 "+error.toString());
+                trackResult.setText("操作失败 " + error.toString());
             }
         }));
     }

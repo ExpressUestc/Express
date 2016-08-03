@@ -15,6 +15,7 @@ import com.google.zxing.WriterException;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.avtivity.NFCWriterActivity;
+import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
@@ -33,6 +34,8 @@ public class ExpressPrintActivity extends BaseActivity {
     ImageView qrcode;
     Button save;
     Button nfc;
+
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +61,15 @@ public class ExpressPrintActivity extends BaseActivity {
 
         HashMap<String, String> map = new HashMap<>();
         map.put("message", getIntent().getStringExtra("message"));
-        System.out.println(getIntent().getStringExtra("message"));
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("authPost", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
                 try {
                     JSONObject jsn = new JSONObject(response);
-                    if (jsn.has("flag") && jsn.getInt("flag") == 1) {
+                    if (jsn.has("flag") && Integer.parseInt(Utils.aesDecrypt(jsn.getString("flag"), key)) == 1) {
                         Toast.makeText(ExpressPrintActivity.this, "验证成功", Toast.LENGTH_SHORT).show();
                         return;
                     }

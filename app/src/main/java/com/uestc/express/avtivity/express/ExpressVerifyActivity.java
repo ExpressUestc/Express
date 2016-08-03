@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
 import com.uestc.express.util.RsaManager;
+import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +32,8 @@ public class ExpressVerifyActivity extends BaseActivity {
 
     EditText deliverPhone;
     EditText deliverId;
+
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +73,20 @@ public class ExpressVerifyActivity extends BaseActivity {
         Map<String, String> map = new HashMap<String,String>();
         map.put("deliverPhone", RsaManager.encrypt(deliverPhone.getText().toString()));
         map.put("deliverID", RsaManager.encrypt(deliverId.getText().toString()));
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("authDeliver", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
                 try {
-                    JSONObject jsn=new JSONObject(response);
-                    int flag=jsn.getInt("flag");
-                    if(flag==1){
+                    JSONObject jsn = new JSONObject(response);
+                    int flag = Integer.parseInt(Utils.aesDecrypt(jsn.getString("flag"), key));
+                    if (flag == 1) {
                         ExpressHomeActivity.startActivity(ExpressVerifyActivity.this, deliverId.getText().toString(),
                                 deliverPhone.getText().toString());
                         finish();
-                    } else{
+                    } else {
                         showDialog("验证失败", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -102,7 +108,6 @@ public class ExpressVerifyActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 });
-                error.printStackTrace();
             }
         }));
 
