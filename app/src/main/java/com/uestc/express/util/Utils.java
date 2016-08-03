@@ -1,9 +1,9 @@
 package com.uestc.express.util;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Environment;
+import android.util.Base64;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -20,10 +20,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.SecureRandom;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Hashtable;
+import java.util.Random;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Created by Tobb_Huang on 16/4/12.
@@ -124,6 +136,62 @@ public class Utils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * generate string by random
+     *
+     * @return str
+     */
+    public static String getRandomString(int length) { //length表示生成字符串的长度
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * AES解密
+     *
+     * @param content 待解密内容
+     * @param key     解密的密钥
+     * @return
+     */
+    public static String aesDecrypt(String content, String key) {
+        if (content.length() < 1)
+            return null;
+        byte[] byteRresult = new byte[content.length() / 2];
+        for (int i = 0; i < content.length() / 2; i++) {
+            int high = Integer.parseInt(content.substring(i * 2, i * 2 + 1), 16);
+            int low = Integer.parseInt(content.substring(i * 2 + 1, i * 2 + 2), 16);
+            byteRresult[i] = (byte) (high * 16 + low);
+        }
+        System.out.println(new String(byteRresult));
+        try {
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("utf-8"), "AES");
+            Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+            byte[] original = cipher.doFinal(byteRresult);
+            String originalString = new String(original, "utf-8");
+            return originalString.substring(0, originalString.indexOf("{"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

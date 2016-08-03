@@ -50,6 +50,8 @@ public class SendMessageActivity extends BaseActivity {
     private String deliverPhone;
     private String deliverID;
 
+    private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,8 @@ public class SendMessageActivity extends BaseActivity {
                     map.put("message", message);
                     map.put("deliverPhone", RsaManager.encrypt(deliverPhone));
                     map.put("deliverID", RsaManager.encrypt(deliverID));
+                    key = Utils.getRandomString(16);
+                    map.put("key", RsaManager.encrypt(key));
 
                     addRequest(getRequestManager().postRequest("distribute", map, new Response.Listener<String>() {
                         @Override
@@ -106,7 +110,7 @@ public class SendMessageActivity extends BaseActivity {
                                 dismissProgress();
                                 tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color
                                         .douban_green));
-                                tvMessage.setText(jsn.getString("feedback"));
+                                tvMessage.setText(Utils.aesDecrypt(jsn.getString("feedback"), key));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -115,9 +119,8 @@ public class SendMessageActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dismissProgress();
-                            tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this,R.color.douban_red));
+                            tvMessage.setTextColor(ContextCompat.getColor(SendMessageActivity.this, R.color.douban_red));
                             tvMessage.setText("发送失败");
-                            error.printStackTrace();
                         }
                     }));
                 } else {

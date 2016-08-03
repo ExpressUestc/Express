@@ -3,7 +3,6 @@ package com.uestc.express.avtivity.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,17 +10,14 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.uestc.express.Constants;
 import com.uestc.express.R;
 import com.uestc.express.avtivity.BaseActivity;
-import com.uestc.express.util.Base64;
 import com.uestc.express.util.RsaManager;
 import com.uestc.express.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +25,7 @@ public class CustomerSendActivity extends BaseActivity {
     private Button btnSend;
     private EditText etMyName, etMyPhone,etMyCity, etMyAddress, etMyPostalCode, etExtraPrice, etRcvName, etRcvPhone,
             etRcvCity, etRcvAddress, etRcvPostalCode, etGoods, etExpressCompany, etRemarks;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +93,8 @@ public class CustomerSendActivity extends BaseActivity {
                     map.put("goods", RsaManager.encrypt(etGoods.getText().toString()));
                     map.put("expressCompany", RsaManager.encrypt(etExpressCompany.getText().toString()));
                     map.put("remarks", RsaManager.encrypt(etRemarks.getText().toString()));
+                    key = Utils.getRandomString(16);
+                    map.put("key", RsaManager.encrypt(key));
                     addRequest(getRequestManager().postRequest("", map, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -103,12 +102,14 @@ public class CustomerSendActivity extends BaseActivity {
                             try {
                                 JSONObject jsn = new JSONObject(response);
                                 Intent intent = new Intent(CustomerSendActivity.this, CustomerSendResultActivity.class);
-                                intent.putExtra("code", jsn.getString("code"));
+                                intent.putExtra("code", Utils.aesDecrypt(jsn.getString("code"), key));
                                 intent.putExtra("rcvName", etRcvName.getText().toString());
                                 intent.putExtra("rcvPhone", etRcvPhone.getText().toString());
                                 startActivity(intent);
                                 finish();
                             } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }

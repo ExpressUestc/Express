@@ -46,6 +46,7 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     private TextView error_notice;
 
     private String message;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,16 +112,18 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("rcvPhone", RsaManager.encrypt(etRcvPhone.getText().toString()));
         map.put("message", message);
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("auth", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
-                    if(jsn.getInt("flag")==1){
+                    if (Integer.parseInt(Utils.aesDecrypt(jsn.getString("flag"), key)) == 1) {
                         doPostVerifyMsg();
                     } else{
                         dismissProgress();
-                        error_notice.setText(jsn.getString("response"));
+                        error_notice.setText(Utils.aesDecrypt(jsn.getString("response"), key));
                         error_notice.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
@@ -132,7 +135,6 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
             public void onErrorResponse(VolleyError error) {
                 dismissProgress();
                 Toast.makeText(CustomerRcvQrcodeActivity.this, "验证失败", Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
             }
         }));
     }
@@ -140,13 +142,16 @@ public class CustomerRcvQrcodeActivity extends BaseActivity {
     private void doPostVerifyMsg() {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", message);
+        key = Utils.getRandomString(16);
+        map.put("key", RsaManager.encrypt(key));
         addRequest(getRequestManager().postRequest("getVerify", map, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 dismissProgress();
                 try {
                     JSONObject jsn=new JSONObject(Utils.unicode2utf8(response));
-                    Toast.makeText(CustomerRcvQrcodeActivity.this, jsn.getString("feedback"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomerRcvQrcodeActivity.this, Utils.aesDecrypt(jsn.getString("feedback"), key),
+                            Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
